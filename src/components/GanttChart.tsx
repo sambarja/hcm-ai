@@ -1,11 +1,11 @@
 import { differenceInCalendarDays, addMonths, startOfMonth, format } from "date-fns";
-import { ragFor } from "@/lib/utils";
+import { ragFor, toDate } from "@/lib/utils";
 
 type Row = {
   id: string;
   label: string;
-  start: Date | null;
-  end: Date | null;
+  start: Date | string | null;
+  end: Date | string | null;
   status: string;
   critical: boolean;
 };
@@ -76,8 +76,8 @@ export function GanttChart({ rows }: { rows: Row[] }) {
         {/* Rows */}
         {rows.map((r, i) => {
           const y = headerHeight + i * rowHeight;
-          const start = r.start ?? today;
-          const end = r.end ?? addMonths(start, 1);
+          const start = toDate(r.start) ?? today;
+          const end = toDate(r.end) ?? addMonths(start, 1);
           const x0 = dayToX(start);
           const x1 = dayToX(end);
           const w = Math.max(4, x1 - x0);

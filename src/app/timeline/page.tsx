@@ -1,23 +1,21 @@
-import { db } from "@/lib/db";
-import { milestones, criticalPathTasks } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import msData from "@/data/milestones.json";
+import cptData from "@/data/critical-path.json";
+import type { Milestone, CriticalPathTask } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { GanttChart } from "@/components/GanttChart";
 
-export const dynamic = "force-dynamic";
+export default function TimelinePage() {
+  const ms = msData as Milestone[];
+  const cpt = [...(cptData as CriticalPathTask[])].sort((a, b) => a.orderIx - b.orderIx);
 
-export default async function TimelinePage() {
-  const [ms, cpt] = await Promise.all([
-    db.select().from(milestones),
-    db.select().from(criticalPathTasks).orderBy(asc(criticalPathTasks.orderIx)),
-  ]);
+  const today = new Date().toISOString().slice(0, 10);
 
   const msRows = ms
     .filter((m) => m.targetDate)
     .map((m) => ({
       id: m.id,
       label: m.name,
-      start: m.createdAt ?? new Date(),
+      start: today,
       end: m.targetDate,
       status: m.status,
       critical: false,

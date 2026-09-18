@@ -6,19 +6,29 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function fmtDate(d: Date | null | undefined): string {
-  if (!d || !isValid(d)) return "—";
-  return format(d, "yyyy-MM-dd");
+/** Accept either a Date, an ISO string, or nullish; return a Date or null. */
+export function toDate(d: Date | string | null | undefined): Date | null {
+  if (d == null) return null;
+  const parsed = d instanceof Date ? d : new Date(d);
+  return isValid(parsed) ? parsed : null;
 }
 
-export function daysUntil(d: Date | null | undefined): number | null {
-  if (!d || !isValid(d)) return null;
-  return differenceInCalendarDays(d, new Date());
+export function fmtDate(d: Date | string | null | undefined): string {
+  const dt = toDate(d);
+  if (!dt) return "—";
+  return format(dt, "yyyy-MM-dd");
 }
 
-export function businessDaysSince(d: Date | null | undefined): number | null {
-  if (!d || !isValid(d)) return null;
-  return differenceInBusinessDays(new Date(), d);
+export function daysUntil(d: Date | string | null | undefined): number | null {
+  const dt = toDate(d);
+  if (!dt) return null;
+  return differenceInCalendarDays(dt, new Date());
+}
+
+export function businessDaysSince(d: Date | string | null | undefined): number | null {
+  const dt = toDate(d);
+  if (!dt) return null;
+  return differenceInBusinessDays(new Date(), dt);
 }
 
 export function ragFor(status: string): "green" | "amber" | "red" | "gray" | "gold" {

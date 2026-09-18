@@ -1,22 +1,18 @@
-import { db } from "@/lib/db";
-import { objectives, keyResults } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import objData from "@/data/objectives.json";
+import krData from "@/data/key-results.json";
+import type { Objective, KeyResult } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { KRCard } from "@/components/KRCard";
 
-export const dynamic = "force-dynamic";
-
-export default async function OkrsPage() {
-  const [objs, krs] = await Promise.all([
-    db.select().from(objectives).orderBy(asc(objectives.id)),
-    db.select().from(keyResults).orderBy(asc(keyResults.id)),
-  ]);
+export default function OkrsPage() {
+  const objs = [...(objData as Objective[])].sort((a, b) => a.id - b.id);
+  const krs = [...(krData as KeyResult[])].sort((a, b) => a.id.localeCompare(b.id));
 
   return (
     <div>
       <PageHeader
         title="OKRs · Pre-M1 (Q3 2026)"
-        subtitle="5 objectives, 21 key results. Grade is client-side in Phase 1 — grades do not persist until Phase 2."
+        subtitle="5 objectives, 21 key results. Grades come from src/data/key-results.json — edit the JSON and redeploy to update."
       />
       <div className="space-y-8">
         {objs.map((o) => {

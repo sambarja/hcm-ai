@@ -1,16 +1,14 @@
-import { db } from "@/lib/db";
-import { milestones } from "@/db/schema";
+import msData from "@/data/milestones.json";
+import type { Milestone, MilestoneId } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { MilestoneCard } from "@/components/MilestoneCard";
 
-export const dynamic = "force-dynamic";
+const ORDER: MilestoneId[] = ["M0", "M1", "M2", "M3", "M4", "M5", "MR"];
 
-const ORDER = ["M0", "M1", "M2", "M3", "M4", "M5", "MR"] as const;
-
-export default async function MilestonesPage() {
-  const rows = await db.select().from(milestones);
+export default function MilestonesPage() {
+  const rows = msData as Milestone[];
   const byId = new Map(rows.map((r) => [r.id, r]));
-  const sorted = ORDER.map((id) => byId.get(id)).filter(Boolean) as typeof rows;
+  const sorted = ORDER.map((id) => byId.get(id)).filter((m): m is Milestone => Boolean(m));
 
   return (
     <div>

@@ -1,10 +1,7 @@
-import { db } from "@/lib/db";
-import { documents } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import docsData from "@/data/documents.json";
+import type { DocumentEntry } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { LinkCard } from "@/components/LinkCard";
-
-export const dynamic = "force-dynamic";
 
 const SECTIONS: Record<string, string> = {
   A: "A · Team workbooks",
@@ -16,9 +13,12 @@ const SECTIONS: Record<string, string> = {
   G: "G · OKR source",
 };
 
-export default async function DocumentsPage() {
-  const rows = await db.select().from(documents).orderBy(asc(documents.section), asc(documents.title));
-  const grouped = new Map<string, typeof rows>();
+export default function DocumentsPage() {
+  const rows = [...(docsData as DocumentEntry[])].sort((a, b) => {
+    const sec = a.section.localeCompare(b.section);
+    return sec !== 0 ? sec : a.title.localeCompare(b.title);
+  });
+  const grouped = new Map<string, DocumentEntry[]>();
   for (const r of rows) {
     if (!grouped.has(r.section)) grouped.set(r.section, []);
     grouped.get(r.section)!.push(r);

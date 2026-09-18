@@ -1,6 +1,6 @@
 # HCM AI · Project Management website
 
-Programme dashboard for the HCM AI (formerly SAGIP) LGU HRIS build. Replaces the SAGIP Command Center Excel workbook with a live-data Next.js 15 app backed by Neon Postgres. Phase 1 MVP — single-user, seeded from the current SAGIP workbooks, deployable to Vercel today.
+Programme dashboard for the HCM AI (formerly SAGIP) LGU HRIS build. Replaces the SAGIP Command Center Excel workbook with a live-data Next.js 15 app. Phase 1 MVP — static-JSON, single-user, seeded from the current SAGIP workbooks, one-click deploy to Vercel.
 
 Governs:
 
@@ -20,9 +20,8 @@ Full technical spec: [`HCM_AI_PM_Website_Spec.md`](../Plan/HCM_AI_PM_Website_Spe
 
 - Node.js 20 LTS or newer (Node 22 recommended)
 - npm 10+
-- A [Neon](https://neon.tech) account (free tier is fine)
-- A [Vercel](https://vercel.com) account (free tier is fine)
 - Git
+- A [Vercel](https://vercel.com) account for deploy (free tier is fine)
 
 ## Local setup
 
@@ -30,23 +29,55 @@ Full technical spec: [`HCM_AI_PM_Website_Spec.md`](../Plan/HCM_AI_PM_Website_Spe
 # 1. Install dependencies
 npm install
 
-# 2. Copy env template and fill in DATABASE_URL
-cp .env.example .env
-# Edit .env — paste the pooled connection string from Neon dashboard
-
-# 3. Push the schema to Neon
-npm run db:push
-
-# 4. Seed the database (idempotent)
-npm run db:seed
-
-# 5. Run dev server
+# 2. Run dev server
 npm run dev
 # App at http://localhost:3000
 # Health check at http://localhost:3000/api/health
 ```
 
-If `db:push` prompts about destructive statements, review and confirm. Schema is Phase 1 stable — every table is additive.
+No database. No environment variables required. No seed script. Data lives in `src/data/*.json` and is imported directly by each page.
+
+## How to edit data
+
+Every register the app renders is one JSON file under `src/data/`:
+
+| File | Renders on |
+| --- | --- |
+| `milestones.json` | `/`, `/milestones`, `/timeline` |
+| `critical-path.json` | `/timeline` |
+| `objectives.json`, `key-results.json` | `/`, `/okrs` |
+| `changes.json` | Phase 2 |
+| `pocs.json`, `adrs.json` | `/` (recent ADRs), Phase 2 for full pages |
+| `harness-defects.json` | Phase 2 |
+| `dependencies.json` | Phase 2 |
+| `risks.json` | `/risks` |
+| `team.json` | `/team` |
+| `standups.json` | `/standup` |
+| `blockers.json` | `/`, `/blockers` |
+| `agent-runs.json` | Phase 3 |
+| `jira-tickets.json` | Phase 2 |
+| `documents.json` | `/documents` |
+
+Workflow to update anything on the site:
+
+1. Edit the relevant JSON file under `src/data/`.
+2. `git commit && git push`.
+3. Vercel auto-redeploys in ~30 seconds. No migrations, no seed run.
+
+TypeScript shapes for every JSON file are in [`src/types.ts`](src/types.ts). Dates are ISO strings (`"2027-01-15"`).
+
+## When to add a database
+
+**Phase 1 (now) — static JSON is enough.** The site is read-only for the team demo and for Project Owner tracking. Edits happen in the JSON files by whoever owns the workbook, then get committed. That's the whole workflow.
+
+**Phase 2 — switch to Postgres if you need any of these:**
+
+- Grade the OKRs in the browser and persist the change (`/okrs`).
+- Add or resolve a blocker from the UI, not from a JSON edit (`/blockers`).
+- Sync Jira tickets on a cron.
+- Publish a weekly/monthly report page.
+
+When that day comes, the shapes in `src/types.ts` are the target schema — see `Plan/HCM_AI_PM_Website_Spec.md` for the full Drizzle model and the migration path.
 
 ## Deploy to Vercel
 
@@ -54,52 +85,32 @@ If `db:push` prompts about destructive statements, review and confirm. Schema is
    ```bash
    git init
    git add .
-   git commit -m "Phase 1 MVP: HCM AI PM website scaffold"
+   git commit -m "Phase 1 MVP: HCM AI PM website scaffold (static-JSON)"
    git branch -M main
    git remote add origin git@github.com:<org>/hcm-ai-pm.git
    git push -u origin main
    ```
 2. In Vercel: **New Project** → import the repo.
 3. Framework preset: **Next.js**. Root directory: `/`. Build & output settings: leave defaults.
-4. **Environment Variables**:
+4. **Environment Variables** (all optional):
 
    | Name | Value | Scope |
    | --- | --- | --- |
-   | `DATABASE_URL` | Neon pooled connection string | Production, Preview |
    | `NEXT_PUBLIC_APP_NAME` | `HCM AI · PM` (or your override) | Production, Preview |
 
-5. Click **Deploy**. First build takes ~90 seconds.
+5. Click **Deploy**. First build takes ~60 seconds.
 
-## Post-deploy
-
-The DB has already been pushed and seeded locally (against the same Neon database that production uses). If you want a separate production database:
-
-```bash
-# Point .env at the production Neon URL locally, then:
-npm run db:push
-npm run db:seed
-# Return .env to the dev URL
-```
-
-Verify:
-
-```bash
-curl https://<your-app>.vercel.app/api/health
-# {"ok":true,"db":"connected","rows":1}
-```
-
-Then open the deployed URL and click through: `/`, `/timeline`, `/okrs`, `/milestones`, `/blockers`, `/risks`, `/standup`, `/team`, `/documents`.
+That's it. No database provisioning, no seed step, no build-time secrets required.
 
 ## Environment variables
 
 | Name | Phase | Purpose |
 | --- | --- | --- |
-| `DATABASE_URL` | 1 | Neon pooled connection string (`?sslmode=require`) |
-| `NEXT_PUBLIC_APP_NAME` | 1 | Brand text in the top bar |
-| `ANTHROPIC_API_KEY` | 3 | Powers agents A1–A7 |
-| `JIRA_API_TOKEN` | 2 | Jira Cloud REST API token |
-| `JIRA_BASE_URL` | 2 | e.g. `https://supervaise.atlassian.net` |
-| `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` | 4 | Clerk auth (multi-tenant) |
+| `NEXT_PUBLIC_APP_NAME` | 1 | Brand text in the top bar. Optional; defaults to `HCM AI · PM`. |
+| `DATABASE_URL` | 2 | Neon pooled connection string — required only when Phase 2 lands the writable OKR/blocker flow. |
+| `ANTHROPIC_API_KEY` | 3 | Powers agents A1–A7. |
+| `JIRA_API_TOKEN`, `JIRA_BASE_URL` | 2 | Jira Cloud REST sync. |
+| `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` | 4 | Clerk auth (multi-tenant). |
 
 ## Scripts
 
@@ -109,9 +120,6 @@ Then open the deployed URL and click through: `/`, `/timeline`, `/okrs`, `/miles
 | `npm run build` | Production build |
 | `npm run start` | Serve production build |
 | `npm run lint` | ESLint (Next.js config) |
-| `npm run db:generate` | Emit SQL migration files from the Drizzle schema |
-| `npm run db:push` | Sync the schema to the database (dev-fast) |
-| `npm run db:seed` | Seed all tables from `src/db/seed.ts` |
 
 ## Project layout
 
@@ -120,14 +128,13 @@ hcm-ai-pm/
 ├─ src/
 │  ├─ app/               10 routes (see below)
 │  ├─ components/        Sidebar, TopBar, cards, Gantt, table
-│  ├─ lib/               db client, env, utils
-│  └─ db/                schema.ts + seed.ts (16 tables)
-├─ drizzle/              generated migrations
+│  ├─ data/              16 JSON files — the whole content model
+│  ├─ lib/               env + utils
+│  └─ types.ts           TypeScript shape for each JSON file
 ├─ package.json
 ├─ tsconfig.json
 ├─ tailwind.config.ts
-├─ next.config.ts
-└─ drizzle.config.ts
+└─ next.config.ts
 ```
 
 ## Routes (Phase 1)
@@ -143,45 +150,42 @@ hcm-ai-pm/
 | `/standup` | Written stand-up log, grouped by date |
 | `/team` | Team directory (5 members) |
 | `/documents` | 7-section index; file paths open via `file://` |
-| `/api/health` | JSON health check |
+| `/api/health` | JSON health check (lists loaded data files) |
 
 ## Phase 2 / 3 preview
 
 **Phase 2 (2 weeks after Phase 1 ships):**
 
-- Jira sync (`*/15 * * * *` via Vercel Cron) into `jira_tickets`
-- New routes: `/changes`, `/pocs`, `/adrs`, `/harness`, `/dependencies`, `/reports/weekly`, `/reports/monthly`
-- Report pages initially render human-authored markdown seeded into `agent_runs`
+- Introduce Postgres (Neon) behind a `db()` helper; migrate JSON → tables one at a time.
+- Jira sync (`*/15 * * * *` via Vercel Cron) into `jira_tickets`.
+- New routes: `/changes`, `/pocs`, `/adrs`, `/harness`, `/dependencies`, `/reports/weekly`, `/reports/monthly`.
+- OKR grade + blocker add/resolve become server actions.
 
 **Phase 3 (3 weeks):**
 
-- Anthropic SDK wired for A1 Planning, A2 Projections, A3 Reporting, A4 Escalation, A5 Actions, A6 Decisions, A7 Risks
-- Signing UI at `/agents/[agentId]/runs/[runId]`
-- Cron cadences from the Agent Plan §8
+- Anthropic SDK wired for A1 Planning, A2 Projections, A3 Reporting, A4 Escalation, A5 Actions, A6 Decisions, A7 Risks.
+- Signing UI at `/agents/[agentId]/runs/[runId]`.
+- Cron cadences from the Agent Plan §8.
 
 **Phase 4 (2 weeks):**
 
-- Clerk auth, org-per-LGU tenant, role mapping to Work Plan §11
-- Client-reader role sees only published monthly reports + Current documents
+- Clerk auth, org-per-LGU tenant, role mapping to Work Plan §11.
+- Client-reader role sees only published monthly reports + Current documents.
 
 ## Troubleshooting
 
-**`Error: DATABASE_URL is required`** — copy `.env.example` to `.env` and paste your Neon pooled string.
+**Gantt bars all crammed on today** — milestone `targetDate` values in `src/data/milestones.json` are anchored to NTP = 2027-01-15. Edit the ISO strings once real NTP is issued.
 
-**`db:push` fails with `SSL required`** — ensure your `DATABASE_URL` ends with `?sslmode=require`.
+**"KR grade doesn't save"** — expected in Phase 1. Grades are client-state only; edit `src/data/key-results.json` and redeploy to persist.
 
-**`db:seed` reports zero inserts on second run** — that's normal. All inserts use `onConflictDoNothing()`; running it twice is safe.
+**A JSON edit didn't show up** — Vercel only redeploys on `git push`. If you edited locally, run `npm run dev` to see changes; if you edited a JSON on GitHub directly, wait ~30 seconds for the auto-deploy.
 
-**Vercel build fails on `next build`** — verify `DATABASE_URL` is set as a build-time env var (Vercel: Settings → Environment Variables → Production).
-
-**Gantt bars don't render** — the seed anchors milestones to `NTP = 2027-01-15`. Change the `NTP` constant in `src/db/seed.ts` and re-run `db:seed` once actual NTP is issued.
-
-**"KR grade doesn't save"** — expected in Phase 1. Grades are client-state only until Phase 2 wires a server action.
+**TypeScript complains about a JSON field** — update the corresponding interface in `src/types.ts`. The JSON is the source of truth; types trail it.
 
 ## Contributing
 
-- Every schema change is a Drizzle migration: `npm run db:generate` then commit the emitted files under `drizzle/`.
-- Every new page reads from Drizzle. No `fetch()` to third-party APIs from a page in Phase 1.
+- One JSON file = one register. Never split a register across multiple files.
+- Every new page reads from `@/data/*.json` in Phase 1. No `fetch()` to third-party APIs from a page.
 - Follow the Work Plan §8.2 change loop for anything non-trivial.
 
 ## License

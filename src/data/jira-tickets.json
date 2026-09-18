@@ -1,0 +1,67 @@
+[
+  {
+    "key": "SAG-101",
+    "title": "Swimlane · Leave filing",
+    "owner": "Sam",
+    "sprint": "Pre-M1",
+    "krId": "KR 1.1",
+    "priority": "high",
+    "status": "Done",
+    "dueDate": "2026-09-22",
+    "onCriticalChain": false,
+    "lastSyncedAt": "2026-09-18",
+    "raw": "{}"
+  },
+  {
+    "key": "SAG-102",
+    "title": "Swimlane · Biometric attendance",
+    "owner": "Sam",
+    "sprint": "Pre-M1",
+    "krId": "KR 1.1",
+    "priority": "high",
+    "status": "In Progress",
+    "dueDate": "2026-09-28",
+    "onCriticalChain": false,
+    "lastSyncedAt": "2026-09-18",
+    "raw": "{}"
+  },
+  {
+    "key": "SAG-110",
+    "title": "Prototype · Mayor exception dashboard",
+    "owner": "Sam",
+    "sprint": "Pre-M1",
+    "krId": "KR 2.1",
+    "priority": "high",
+    "status": "In Progress",
+    "dueDate": "2026-09-30",
+    "onCriticalChain": true,
+    "lastSyncedAt": "2026-09-18",
+    "raw": "{}"
+  },
+  {
+    "key": "SAG-111",
+    "title": "Prototype · Signing ceremony",
+    "owner": "Sam",
+    "sprint": "Pre-M1",
+    "krId": "KR 2.1",
+    "priority": "high",
+    "status": "To Do",
+    "dueDate": "2026-10-03",
+    "onCriticalChain": true,
+    "lastSyncedAt": "2026-09-18",
+    "raw": "{}"
+  },
+  {
+    "key": "SAG-142",
+    "title": "AI-first task tracker · design draft",
+    "owner": "Sam",
+    "sprint": "Pre-M1",
+    "krId": "KR 4.2",
+    "priority": "medium",
+    "status": "In Progress",
+    "dueDate": "2026-10-08",
+    "onCriticalChain": false,
+    "lastSyncedAt": "2026-09-18",
+    "raw": "{}"
+  }
+]

@@ -1,17 +1,14 @@
-import { db } from "@/lib/db";
-import { blockers } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import blockerData from "@/data/blockers.json";
+import type { Blocker } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable, type Column } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { businessDaysSince, fmtDate } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+type Row = Blocker;
 
-type Row = typeof blockers.$inferSelect;
-
-export default async function BlockersPage() {
-  const rows = await db.select().from(blockers).orderBy(asc(blockers.raisedAt));
+export default function BlockersPage() {
+  const rows = [...(blockerData as Blocker[])].sort((a, b) => a.raisedAt.localeCompare(b.raisedAt));
 
   const cols: Column<Row>[] = [
     { key: "id", header: "ID", className: "mono text-[11px] text-ink-2 w-28" },

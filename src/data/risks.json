@@ -1,0 +1,112 @@
+[
+  {
+    "id": "RSK-001",
+    "mode": "Counterpart delay",
+    "earlySign": "PNPKI, GSIS, or a statutory endpoint does not respond within its stated lead time.",
+    "mitigation": "Contract layer stubs the counterpart from day one; L2 harness catches drift when the real counterpart returns.",
+    "escalation": "Named on the dependency list in the monthly report (TOR 7.3); milestone date not moved unless delay exceeds §5.2 slack.",
+    "realised": false,
+    "severity": "Major",
+    "milestoneId": "M3",
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-002",
+    "mode": "Rule misinterpretation",
+    "earlySign": "L1 harness disagrees with the reference payroll register on any staff type.",
+    "mitigation": "Rules pack versioned per ADR-001 and ADR-003; every L1 test declares pack version and evidence records its hash.",
+    "escalation": "New ADR to correct the rule; M1 gate does not close until L1 is green on the corrected pack.",
+    "realised": false,
+    "severity": "Major",
+    "milestoneId": "M1",
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-003",
+    "mode": "Silent scope creep from exceptions",
+    "earlySign": "The exception path routes cases that should have been auto-approved.",
+    "mitigation": "Manage-by-exception proved at L3 with an auto-approved fixture and an exception fixture for every rule.",
+    "escalation": "Rule owner reviews the routing; a rule with more than one exception fixture reopens the specification.",
+    "realised": false,
+    "severity": "Major",
+    "milestoneId": "M2",
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-004",
+    "mode": "Agent hallucination",
+    "earlySign": "The diff contains code that has no basis in the prompt or the specification.",
+    "mitigation": "Prompts and specifications stored with the change; reviewer reads the prompt before the diff.",
+    "escalation": "Change is withdrawn and re-run with a corrected prompt; failure logged as HRN if the harness did not catch it.",
+    "realised": false,
+    "severity": "Minor",
+    "milestoneId": null,
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-005",
+    "mode": "Offline sync divergence",
+    "earlySign": "Mobile client and server disagree on the state of a submitted capture after a forced reconnect.",
+    "mitigation": "L4 harness includes a forced-offline scenario; mobile data model reviewed before M4.",
+    "escalation": "M4 not closed until divergence is reproduced, fixed, and L4 fixture updated to prevent regression.",
+    "realised": false,
+    "severity": "Major",
+    "milestoneId": "M4",
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-006",
+    "mode": "Signing key custody breach or loss",
+    "earlySign": "A signing key is used from a device not on the approved list, or a key holder is unreachable.",
+    "mitigation": "Custody governed by ADR-005; fallback to manual signature kept ready for M3.",
+    "escalation": "Immediate Critical gap; milestone paused and Project Owner escalates to LGU counterpart.",
+    "realised": false,
+    "severity": "Critical",
+    "milestoneId": "M3",
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-007",
+    "mode": "Undocumented decision",
+    "earlySign": "A change is merged that references a rule or interface no artifact describes.",
+    "mitigation": "Every change carries a specification note; reviewer blocks a merge that cannot cite its source.",
+    "escalation": "Change reverted; the underlying decision captured as an ADR before the change is re-attempted.",
+    "realised": false,
+    "severity": "Major",
+    "milestoneId": null,
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-008",
+    "mode": "Meeting sprawl",
+    "earlySign": "More than the ceremonies in Work Plan §7.1 are convened in a week.",
+    "mitigation": "Meetings held only when documentation cannot answer the question; written stand-up carries daily traffic.",
+    "escalation": "Project Owner cancels the excess; questions the meetings were called for are written back into the relevant document.",
+    "realised": false,
+    "severity": "Minor",
+    "milestoneId": null,
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-009",
+    "mode": "Critical-path task starting late",
+    "earlySign": "A task on the path in Work Plan §5.1 has not started by its planned start.",
+    "mitigation": "Weekly check of the critical path in the engineering meeting.",
+    "escalation": "Logged as a slip in the weekly report; milestone owner proposes either a compressed plan or a moved milestone date.",
+    "realised": false,
+    "severity": "Major",
+    "milestoneId": null,
+    "mitigationLastMovedAt": null
+  },
+  {
+    "id": "RSK-010",
+    "mode": "Client-facing document leakage",
+    "earlySign": "An internal specification, prompt, or harness artifact is included in a client-facing deliverable.",
+    "mitigation": "Client-facing outputs limited to the interface, the offered build, and the reports in Work Plan §10.",
+    "escalation": "Deliverable withdrawn and re-issued; leakage logged and source folder's access reviewed.",
+    "realised": false,
+    "severity": "Critical",
+    "milestoneId": null,
+    "mitigationLastMovedAt": null
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Define the product through diagrams and rules an AI agent can build from — not a spec doc no one will read.",
+    "description": "Transitory: swimlane diagrams + eng collaboration on system design.",
+    "quarter": "Pre-M1 (Q3 2026)"
+  },
+  {
+    "id": 2,
+    "title": "Make the UI the real test — prototype it in Claude Design, don't just describe it.",
+    "description": "Transitory: UI/UX prototype in Claude Design, consumer-style experience.",
+    "quarter": "Pre-M1 (Q3 2026)"
+  },
+  {
+    "id": 3,
+    "title": "Build faster and leaner — automate and streamline the flow.",
+    "description": "Margins here aren't what big companies have — speed is the edge.",
+    "quarter": "Pre-M1 (Q3 2026)"
+  },
+  {
+    "id": 4,
+    "title": "Track progress and risk the AI-native way — critical chain, not status reports.",
+    "description": "Transitory: manage deliverables/tasks/schedule + usability-aligned checks.",
+    "quarter": "Pre-M1 (Q3 2026)"
+  },
+  {
+    "id": 5,
+    "title": "Replace meetings with documentation — align by writing and reading, not by scheduling calls.",
+    "description": "Meetings only for hard alignment; docs replace the rest.",
+    "quarter": "Pre-M1 (Q3 2026)"
+  }
+]

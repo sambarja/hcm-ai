@@ -1,0 +1,32 @@
+[
+  {
+    "id": "HRN-2026-0001",
+    "layer": "L1",
+    "title": "Casual staff type payroll off by 1 peso rounding",
+    "severity": "Minor",
+    "status": "in_progress",
+    "owner": "Eng Owner",
+    "raisedAt": "2026-09-18",
+    "closedAt": null
+  },
+  {
+    "id": "HRN-2026-0002",
+    "layer": "L3",
+    "title": "Exception route fires on auto-approvable case (rule R-14)",
+    "severity": "Major",
+    "status": "in_progress",
+    "owner": "Eng Owner",
+    "raisedAt": "2026-09-18",
+    "closedAt": null
+  },
+  {
+    "id": "HRN-2026-0003",
+    "layer": "L4",
+    "title": "Mobile forced-offline scenario not yet in fixture set",
+    "severity": "Major",
+    "status": "not_started",
+    "owner": "Franc",
+    "raisedAt": "2026-09-18",
+    "closedAt": null
+  }
+]

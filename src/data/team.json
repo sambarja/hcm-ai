@@ -1,0 +1,57 @@
+[
+  {
+    "id": "TM-001",
+    "name": "Sam",
+    "role": "Project Owner (+ Full-Stack, Scrum)",
+    "primaryWorkbook": "Team Master + all others",
+    "krsOwned": "O1–O5 (all 21 KRs)",
+    "reportsTo": "Leadership",
+    "contact": "dev2@supervaise.io",
+    "timezone": "PH",
+    "notes": "Owns this dashboard and the seven agents."
+  },
+  {
+    "id": "TM-002",
+    "name": "(TBD) Engineering Owner",
+    "role": "Engineering Owner",
+    "primaryWorkbook": "Engineering Sprint Tracker",
+    "krsOwned": "KR 3.2, 3.3, 3.4 primary",
+    "reportsTo": "Leadership",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "Sprint velocity + AI-coding adoption."
+  },
+  {
+    "id": "TM-003",
+    "name": "(TBD) QA Lead",
+    "role": "QA / Harness Engineer",
+    "primaryWorkbook": "QA Testing Tracker",
+    "krsOwned": "KR 2.3, 2.4 primary",
+    "reportsTo": "Sam",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "UAT scenarios + user-visible impact tagging."
+  },
+  {
+    "id": "TM-004",
+    "name": "Marcus",
+    "role": "Web Persona Lead / Design",
+    "primaryWorkbook": "Design Prototype Tracker",
+    "krsOwned": "KR 1.1, 2.1 (Web)",
+    "reportsTo": "Sam",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "WP-01 through WP-12 personas."
+  },
+  {
+    "id": "TM-005",
+    "name": "Franc",
+    "role": "Mobile Persona Lead / Design",
+    "primaryWorkbook": "Design Prototype Tracker",
+    "krsOwned": "KR 1.1, 2.1 (Mobile)",
+    "reportsTo": "Sam",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "MP-01 through MP-11 personas."
+  }
+]

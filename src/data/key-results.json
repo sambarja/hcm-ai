@@ -1,0 +1,233 @@
+[
+  {
+    "id": "KR 1.1",
+    "objectiveId": 1,
+    "krNumber": "1.1",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: swimlane diagrams + eng collaboration",
+    "description": "Draft a workflow swimlane diagram for every core process (leave filing, payroll run, JO/COS renewal, travel/field capture, etc.) showing usability, pain points, and the actual benefit to the end user — then work those diagrams directly with Engineering on system design, instead of writing a formal requirements document.",
+    "target": "1 swimlane diagram per core process, each reviewed with Engineering before build starts",
+    "grade": 0.7
+  },
+  {
+    "id": "KR 1.2",
+    "objectiveId": 1,
+    "krNumber": "1.2",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: prioritisation stays as-is",
+    "description": "Sequence the backlog by what people will actually see and touch first — forms, dashboards, the mobile capture app — even if some backend-only pieces aren't done yet.",
+    "target": "Top 3 client-visible modules are demo-ready before backend-only modules",
+    "grade": 0.6
+  },
+  {
+    "id": "KR 1.3",
+    "objectiveId": 1,
+    "krNumber": "1.3",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: end-user scope creep framing",
+    "description": "Hold every proposed feature against the TOR's scope, specifically watching for scope creep once there's an actual end user reacting to what they see — reject or defer anything that isn't in scope or wouldn't actually be seen/felt by them.",
+    "target": "0 out-of-scope or invisible-to-user features accepted into the backlog",
+    "grade": 0.8
+  },
+  {
+    "id": "KR 1.4",
+    "objectiveId": 1,
+    "krNumber": "1.4",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: agentic coding-compatible business-rule docs",
+    "description": "Document every statutory or business rule the system runs on — leave computation, payroll deductions, GSIS/PhilHealth/BIR formulas — with its proper legal citation, structured so it can be fed straight to our AI coding agents.",
+    "target": "100% of statutory/business rules documented with citation, in agent-readable format",
+    "grade": 0.5
+  },
+  {
+    "id": "KR 2.1",
+    "objectiveId": 2,
+    "krNumber": "2.1",
+    "type": "committed",
+    "owner": "Marcus + Franc",
+    "reference": "Transitory: UI/UX prototype in Claude Design",
+    "description": "Build the actual UI/UX prototype in Claude Design for every core workflow, translating the requirements straight into a consumer-style interface — not a government-form-style one — so the acceptance bar for a feature is the prototype itself.",
+    "target": "100% of core workflows have a Claude Design prototype before backend work starts; 0 client-facing acceptance-criteria documents produced",
+    "grade": 0.65
+  },
+  {
+    "id": "KR 2.2",
+    "objectiveId": 2,
+    "krNumber": "2.2",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: team review of prototypes",
+    "description": "Walk every prototype and demo through with the full internal team before it's marked ready — not just a solo review — so usability gaps get caught by more than one set of eyes.",
+    "target": "100% of prototypes walked through with the team before being marked ready",
+    "grade": 0.7
+  },
+  {
+    "id": "KR 2.3",
+    "objectiveId": 2,
+    "krNumber": "2.3",
+    "type": "committed",
+    "owner": "QA / Harness Engineer",
+    "reference": "Transitory: Shift-Left Scenario UAT",
+    "description": "Bring testing forward: define the key UAT scenarios up front and personally represent the end-user perspective in Shift-Left UAT sessions.",
+    "target": "100% of modules go through a Shift-Left UAT pass, representing the user perspective, before sign-off",
+    "grade": 0.4
+  },
+  {
+    "id": "KR 2.4",
+    "objectiveId": 2,
+    "krNumber": "2.4",
+    "type": "committed",
+    "owner": "QA / Harness Engineer",
+    "reference": "Issue classification unchanged from Ideal",
+    "description": "Review every logged issue and confirm it's tagged by real user-visible impact, not just an internal severity label.",
+    "target": "100% of logged issues reviewed and tagged by user-visible impact",
+    "grade": 0.5
+  },
+  {
+    "id": "KR 3.1",
+    "objectiveId": 3,
+    "krNumber": "3.1",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Speed is the edge",
+    "description": "Walk the current dev process end to end and flag the 3 slowest, most manual steps in it.",
+    "target": "3 biggest time-sinks identified and written down",
+    "grade": 0.8
+  },
+  {
+    "id": "KR 3.2",
+    "objectiveId": 3,
+    "krNumber": "3.2",
+    "type": "aspirational",
+    "owner": "Engineering Owner",
+    "reference": "Assigned to me to plan",
+    "description": "Work with the Engineering Owner to make AI-assisted coding the default way features get built, not an occasional shortcut.",
+    "target": "≥ 70% of new feature branches built with AI-assisted tooling",
+    "grade": 0.55
+  },
+  {
+    "id": "KR 3.3",
+    "objectiveId": 3,
+    "krNumber": "3.3",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Streamlining = my responsibility this phase",
+    "description": "Find and automate at least 3 manual, repetitive steps in the build-test-ship loop (test data setup, deployment steps, etc.).",
+    "target": "≥ 3 manual steps automated out of the pipeline",
+    "grade": 0.6
+  },
+  {
+    "id": "KR 3.4",
+    "objectiveId": 3,
+    "krNumber": "3.4",
+    "type": "aspirational",
+    "owner": "Sam",
+    "reference": "How we compete without enterprise-size margins",
+    "description": "Track how long it takes from a feature entering the backlog to being demo-ready, and bring that number down over the quarter.",
+    "target": "Feature cycle time down ≥ 25% quarter over quarter",
+    "grade": 0.3
+  },
+  {
+    "id": "KR 4.1",
+    "objectiveId": 4,
+    "krNumber": "4.1",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: manage deliverables/tasks/schedule + usability-aligned checks",
+    "description": "Keep one running view of team deliverables, tasks, and the release schedule — and check progress not just against the plan, but against whether the output still holds up from the end user's usability perspective.",
+    "target": "Deliverables/tasks/schedule tracked in one live place; usability re-checked at every progress review",
+    "grade": 0.7
+  },
+  {
+    "id": "KR 4.2",
+    "objectiveId": 4,
+    "krNumber": "4.2",
+    "type": "aspirational",
+    "owner": "Sam",
+    "reference": "Transitory: AI-first task tracker design",
+    "description": "Design an AI-first task tracker — not just adopt one — that keeps the project outline, tasks, and release schedule updating themselves as work moves.",
+    "target": "1 AI-first task tracker designed and in active use; project outline updates itself as tasks move, 0 status meetings needed",
+    "grade": 0.5
+  },
+  {
+    "id": "KR 4.3",
+    "objectiveId": 4,
+    "krNumber": "4.3",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: risk/dependency list, critical chain, blocker governance",
+    "description": "Draft the initial risk and dependency list, identify and actively track the 'critical chain' toward completion, and design the actual process for how blockers and unresolved decisions get resolved.",
+    "target": "1 live risk/dependency list; critical chain identified and reviewed weekly; 1 documented blocker-resolution process in use",
+    "grade": 0.65
+  },
+  {
+    "id": "KR 4.4",
+    "objectiveId": 4,
+    "krNumber": "4.4",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: escalate aging issues aligned with the critical chain",
+    "description": "Escalate issues specifically when they're aging (open too long) or sitting on the critical chain — not every open issue, just the ones actually threatening the timeline.",
+    "target": "100% of aging or critical-chain-blocking issues escalated within 2 working days of being flagged",
+    "grade": 0.7
+  },
+  {
+    "id": "KR 5.1",
+    "objectiveId": 5,
+    "krNumber": "5.1",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: goal-alignment pass + AI-first minutes",
+    "description": "Run a clarifying pass with every team member so everyone's aligned on the same goals, outcomes, and success criteria up front, and make sure every meeting that still happens after that produces AI-first minutes.",
+    "target": "100% of team members aligned on one shared goals doc at kickoff; 100% of meetings produce AI-first minutes within 1 day",
+    "grade": 0.55
+  },
+  {
+    "id": "KR 5.2",
+    "objectiveId": 5,
+    "krNumber": "5.2",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "No SLA, no routine meetings",
+    "description": "Cut recurring meetings entirely — no daily standups, no weekly status calls, no fixed response-time commitments. Live discussion is capped at one ad-hoc sync a week.",
+    "target": "0 recurring meetings on the calendar; ≤ 1 ad-hoc hard-alignment sync per week",
+    "grade": 0.9
+  },
+  {
+    "id": "KR 5.3",
+    "objectiveId": 5,
+    "krNumber": "5.3",
+    "type": "aspirational",
+    "owner": "Sam",
+    "reference": "Good documentation replaces lengthy meetings",
+    "description": "Keep documentation good enough that it actually replaces a meeting, not just exists next to one.",
+    "target": "≥ 90% of alignment questions raised in a given week get answered from existing docs alone, 0 meeting needed",
+    "grade": 0.6
+  },
+  {
+    "id": "KR 5.4",
+    "objectiveId": 5,
+    "krNumber": "5.4",
+    "type": "committed",
+    "owner": "Sam",
+    "reference": "Transitory: end-user documents current",
+    "description": "Keep the actual end-user-facing documents — milestones, turnover materials, stakeholder-alignment notes, key procedures — current and complete.",
+    "target": "All 4 named end-user document types kept current, checked at every review",
+    "grade": 0.75
+  },
+  {
+    "id": "KR 5.5",
+    "objectiveId": 5,
+    "krNumber": "5.5",
+    "type": "aspirational",
+    "owner": "Sam",
+    "reference": "Shared source of truth in sync with AI agents",
+    "description": "Keep the shared documentation (goals doc, business-rule docs, decision log, risk list, project outline) current and consistently structured enough that it can be fed straight into an AI agent for a quick, accurate answer.",
+    "target": "100% of shared docs stay current enough to answer an alignment question via AI, no live explanation needed",
+    "grade": 0.5
+  }
+]

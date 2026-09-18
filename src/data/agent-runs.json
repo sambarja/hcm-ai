@@ -1,0 +1,13 @@
+[
+  {
+    "id": "A1-2026-001",
+    "agentId": "A1",
+    "promptVersion": "v0.1",
+    "inputHash": "seed-fixture-01",
+    "rawOutput": "{ \"proposed_changes\": [], \"deferred\": [], \"flagged_no_milestone\": [] }",
+    "signedBy": null,
+    "signedAt": null,
+    "evidenceFolder": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\Agents\\Runs\\A1-2026-001\\",
+    "createdAt": "2026-09-18"
+  }
+]

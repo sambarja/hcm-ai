@@ -1,11 +1,9 @@
-import { db } from "@/lib/db";
-import { teamMembers } from "@/db/schema";
+import teamData from "@/data/team.json";
+import type { TeamMember } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 
-export const dynamic = "force-dynamic";
-
-export default async function TeamPage() {
-  const rows = await db.select().from(teamMembers);
+export default function TeamPage() {
+  const rows = teamData as TeamMember[];
   return (
     <div>
       <PageHeader title="Team" subtitle="Named accountability. Roles map to Work Plan §11." />

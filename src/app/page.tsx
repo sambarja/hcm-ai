@@ -1,21 +1,26 @@
-import { db } from "@/lib/db";
-import { keyResults, milestones, blockers, documents, adrs } from "@/db/schema";
-import { desc, eq, isNull } from "drizzle-orm";
+import krData from "@/data/key-results.json";
+import msData from "@/data/milestones.json";
+import blockerData from "@/data/blockers.json";
+import docsData from "@/data/documents.json";
+import adrData from "@/data/adrs.json";
+import type { KeyResult, Milestone, Blocker, DocumentEntry, Adr } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { StatusBadge } from "@/components/StatusBadge";
-import { daysUntil, fmtDate, ragForGrade } from "@/lib/utils";
+import { daysUntil, fmtDate, toDate } from "@/lib/utils";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-
-export default async function DashboardPage() {
-  const [krs, mss, openBlockers, docs, recentAdrs] = await Promise.all([
-    db.select().from(keyResults),
-    db.select().from(milestones),
-    db.select().from(blockers).where(isNull(blockers.resolvedAt)),
-    db.select().from(documents),
-    db.select().from(adrs).orderBy(desc(adrs.effectiveDate)).limit(5),
-  ]);
+export default function DashboardPage() {
+  const krs = krData as KeyResult[];
+  const mss = msData as Milestone[];
+  const openBlockers = (blockerData as Blocker[]).filter((b) => !b.resolvedAt);
+  const docs = docsData as DocumentEntry[];
+  const recentAdrs = [...(adrData as Adr[])]
+    .sort((a, b) => {
+      const ax = a.effectiveDate ? new Date(a.effectiveDate).getTime() : 0;
+      const bx = b.effectiveDate ? new Date(b.effectiveDate).getTime() : 0;
+      return bx - ax;
+    })
+    .slice(0, 5);
 
   const green = krs.filter((k) => (k.grade ?? 0) >= 0.7).length;
   const amber = krs.filter((k) => (k.grade ?? 0) >= 0.4 && (k.grade ?? 0) < 0.7).length;
@@ -25,20 +30,23 @@ export default async function DashboardPage() {
   const m1 = mss.find((m) => m.id === "M1");
   const daysToM1 = daysUntil(m1?.targetDate ?? null);
   const staleDocs = docs.filter((d) => {
-    if (!d.lastTouched) return false;
+    const t = toDate(d.lastTouched);
+    if (!t) return false;
     const now = Date.now();
-    const t = d.lastTouched.getTime();
-    return (now - t) / (1000 * 60 * 60 * 24) > 21;
+    return (now - t.getTime()) / (1000 * 60 * 60 * 24) > 21;
   }).length;
 
   const upcoming = mss
-    .filter((m) => m.targetDate && (m.targetDate.getTime() - Date.now()) >= -1000 * 60 * 60 * 24)
-    .sort((a, b) => (a.targetDate!.getTime() - b.targetDate!.getTime()))
+    .filter((m) => {
+      const t = toDate(m.targetDate);
+      return t != null && t.getTime() - Date.now() >= -1000 * 60 * 60 * 24;
+    })
+    .sort((a, b) => toDate(a.targetDate)!.getTime() - toDate(b.targetDate)!.getTime())
     .slice(0, 3);
 
   return (
     <div>
-      <PageHeader title="Dashboard" subtitle="One view. Every register. Updated live from the database." />
+      <PageHeader title="Dashboard" subtitle="One view. Every register. Rendered from static JSON — edit src/data/*.json to update." />
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
         <Tile label="KRs on track" value={green} tone="green" hint={`of ${krs.length}`} />
         <Tile label="KRs at risk" value={amber} tone="amber" />

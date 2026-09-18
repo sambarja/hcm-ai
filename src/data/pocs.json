@@ -1,0 +1,46 @@
+[
+  {
+    "id": "POC-2026-001",
+    "title": "Rules pack DSL",
+    "question": "Can statutory rules be encoded as an agent-readable DSL?",
+    "owner": "Eng Owner",
+    "status": "done",
+    "outcome": "Yes — ADR-001 accepted.",
+    "linkedAdrId": "ADR-001",
+    "reportPath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\POC-2026-001\\report.docx",
+    "charterPath": null
+  },
+  {
+    "id": "POC-2026-002",
+    "title": "Semi-monthly split",
+    "question": "Do split cut-offs simplify or complicate M1?",
+    "owner": "Eng Owner",
+    "status": "done",
+    "outcome": "Simpler — ADR-003 accepted.",
+    "linkedAdrId": "ADR-003",
+    "reportPath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\POC-2026-002\\report.docx",
+    "charterPath": null
+  },
+  {
+    "id": "POC-2026-003",
+    "title": "PNPKI stub",
+    "question": "Can we stub PNPKI convincingly enough for L2?",
+    "owner": "Eng Owner",
+    "status": "in_progress",
+    "outcome": null,
+    "linkedAdrId": null,
+    "reportPath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\POC-2026-003\\",
+    "charterPath": null
+  },
+  {
+    "id": "POC-2026-005",
+    "title": "Offline sync divergence",
+    "question": "How does mobile reconcile after a forced reconnect?",
+    "owner": "Franc",
+    "status": "in_progress",
+    "outcome": null,
+    "linkedAdrId": null,
+    "reportPath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\POC-2026-005\\",
+    "charterPath": null
+  }
+]

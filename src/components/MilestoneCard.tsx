@@ -5,7 +5,7 @@ type Milestone = {
   id: string;
   name: string;
   weeksFromNtp: string;
-  targetDate: Date | null;
+  targetDate: Date | string | null;
   deliverable: string;
   acceptanceOracle: string | null;
   exitCondition: string | null;

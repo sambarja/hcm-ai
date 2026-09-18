@@ -1,0 +1,58 @@
+[
+  {
+    "id": "SU-001",
+    "date": "2026-09-18",
+    "owner": "Sam",
+    "moved": "Finalised OKR grades; kicked off HCM AI PM website scaffold.",
+    "blocked": "PNPKI counterpart still unresponsive.",
+    "next": "Ship Phase 1 MVP; run local seed against Neon dev branch."
+  },
+  {
+    "id": "SU-002",
+    "date": "2026-09-18",
+    "owner": "Marcus",
+    "moved": "Wireframe v3 — 12 more screens drafted (WP-04, WP-05, WP-06).",
+    "blocked": null,
+    "next": "Walk WP-04 through with Sam Wednesday."
+  },
+  {
+    "id": "SU-003",
+    "date": "2026-09-17",
+    "owner": "Sam",
+    "moved": "Draft risk register v1; identified 4 counterparts.",
+    "blocked": "Cannot cite DBM net-take-home circular version.",
+    "next": "Chase citation; publish v0.1 of risk register."
+  },
+  {
+    "id": "SU-004",
+    "date": "2026-09-17",
+    "owner": "Franc",
+    "moved": "MP-01 (worker offline capture) — 6 screens; MP-02 approvals mock.",
+    "blocked": "No borrowed-phone counter-sign scenario yet.",
+    "next": "Draft counter-sign flow diagram."
+  },
+  {
+    "id": "SU-005",
+    "date": "2026-09-16",
+    "owner": "Sam",
+    "moved": "Backlog recut sequenced by visibility (three visible modules named).",
+    "blocked": null,
+    "next": "Publish backlog v2 in Team Master workbook."
+  },
+  {
+    "id": "SU-006",
+    "date": "2026-09-16",
+    "owner": "Marcus",
+    "moved": "Component architecture PDF v2 shared with Eng review.",
+    "blocked": "Awaiting Eng Owner slot for architecture walk-through.",
+    "next": "Push for Wednesday review slot."
+  },
+  {
+    "id": "SU-007",
+    "date": "2026-09-15",
+    "owner": "Sam",
+    "moved": "Escalation rules v0.1 outline drafted.",
+    "blocked": null,
+    "next": "Circulate to Eng Owner before Wednesday meeting."
+  }
+]

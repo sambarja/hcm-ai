@@ -1,12 +1,10 @@
-import { db } from "@/lib/db";
-import { risks } from "@/db/schema";
+import risksData from "@/data/risks.json";
+import type { Risk } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { StatusBadge } from "@/components/StatusBadge";
 
-export const dynamic = "force-dynamic";
-
-export default async function RisksPage() {
-  const rows = await db.select().from(risks);
+export default function RisksPage() {
+  const rows = risksData as Risk[];
   return (
     <div>
       <PageHeader

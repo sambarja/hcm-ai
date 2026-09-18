@@ -1,17 +1,33 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { sql } from "drizzle-orm";
 
-export const dynamic = "force-dynamic";
-
-export async function GET() {
-  try {
-    const r = await db.execute(sql`SELECT 1 as ok`);
-    return NextResponse.json({ ok: true, db: "connected", rows: r.rows?.length ?? 1 });
-  } catch (err) {
-    return NextResponse.json(
-      { ok: false, db: "error", error: err instanceof Error ? err.message : String(err) },
-      { status: 500 },
-    );
-  }
+/**
+ * Phase 1 health check.
+ *
+ * The site has no database — data is served from static JSON files in
+ * src/data/*.json. This endpoint stays for uptime probes and lists the
+ * data files loaded at build time.
+ */
+export function GET() {
+  return NextResponse.json({
+    ok: true,
+    mode: "static-json",
+    dataFiles: [
+      "milestones",
+      "critical-path",
+      "objectives",
+      "key-results",
+      "changes",
+      "pocs",
+      "adrs",
+      "harness-defects",
+      "dependencies",
+      "risks",
+      "team",
+      "standups",
+      "blockers",
+      "agent-runs",
+      "jira-tickets",
+      "documents",
+    ],
+  });
 }

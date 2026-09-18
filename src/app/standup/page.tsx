@@ -1,15 +1,12 @@
-import { db } from "@/lib/db";
-import { standupEntries } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import standupData from "@/data/standups.json";
+import type { StandupEntry } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { fmtDate } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+export default function StandupPage() {
+  const rows = [...(standupData as StandupEntry[])].sort((a, b) => b.date.localeCompare(a.date));
 
-export default async function StandupPage() {
-  const rows = await db.select().from(standupEntries).orderBy(desc(standupEntries.date));
-
-  const byDate = new Map<string, typeof rows>();
+  const byDate = new Map<string, StandupEntry[]>();
   for (const r of rows) {
     const key = fmtDate(r.date);
     if (!byDate.has(key)) byDate.set(key, []);

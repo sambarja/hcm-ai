@@ -8,7 +8,7 @@ export type Column<T> = {
   render?: (row: T) => ReactNode;
 };
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable<T>({
   columns,
   rows,
   rowClassName,

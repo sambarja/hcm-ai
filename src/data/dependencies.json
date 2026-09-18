@@ -1,0 +1,42 @@
+[
+  {
+    "id": "DEP-001",
+    "counterpart": "PNPKI",
+    "description": "Digital signature enrolment for signatories.",
+    "lastContact": null,
+    "nextExpectedEvent": "Nomination submitted within 1 working week of NTP.",
+    "impactIfUnresolved": "M3 slips one-for-one with the delay.",
+    "rag": "amber",
+    "milestoneId": "M3"
+  },
+  {
+    "id": "DEP-002",
+    "counterpart": "LGU HR",
+    "description": "Payroll cut-off dataset for seeding.",
+    "lastContact": null,
+    "nextExpectedEvent": "Release within 2 working weeks of NTP.",
+    "impactIfUnresolved": "L1 seed data unavailable; M1 walkthrough deferred.",
+    "rag": "amber",
+    "milestoneId": "M1"
+  },
+  {
+    "id": "DEP-003",
+    "counterpart": "GSIS",
+    "description": "Contribution schedule endpoint.",
+    "lastContact": null,
+    "nextExpectedEvent": "Contract test against stub before M2.",
+    "impactIfUnresolved": "L2 red until stub replaced with real endpoint.",
+    "rag": "gray",
+    "milestoneId": "M2"
+  },
+  {
+    "id": "DEP-004",
+    "counterpart": "BIR",
+    "description": "Withholding tax schedule endpoint.",
+    "lastContact": null,
+    "nextExpectedEvent": "Contract test against stub before M2.",
+    "impactIfUnresolved": "L2 red on tax computation path.",
+    "rag": "gray",
+    "milestoneId": "M2"
+  }
+]

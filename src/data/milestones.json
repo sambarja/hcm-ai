@@ -1,0 +1,93 @@
+[
+  {
+    "id": "M0",
+    "name": "Pre-engagement freeze",
+    "weeksFromNtp": "-4 to 0",
+    "targetDate": "2027-01-15",
+    "deliverable": "Documentation and rules pack frozen for build.",
+    "acceptanceOracle": "Pre-M1 OKRs closed; documentation set frozen.",
+    "exitCondition": "All Pre-M1 KRs graded; documentation index at HRIS/POC/SAGIP_Command_Center.xlsx marked Current.",
+    "internalPredecessor": "Pre-M1 OKRs closed.",
+    "status": "in_progress",
+    "rag": "amber",
+    "closureRecordPath": null
+  },
+  {
+    "id": "M1",
+    "name": "Rules pack and payroll core",
+    "weeksFromNtp": "0 to 6",
+    "targetDate": "2027-02-26",
+    "deliverable": "Payroll computation walkthrough on a seeded LGU dataset.",
+    "acceptanceOracle": "Rules pack and reference payroll register (References/PAYROLL-SYSTEM.xlsm).",
+    "exitCondition": "L1 harness green on frozen rules pack; walkthrough recorded to evidence folder.",
+    "internalPredecessor": "POCs on rules pack and semi-monthly split closed by ADR.",
+    "status": "not_started",
+    "rag": "gray",
+    "closureRecordPath": null
+  },
+  {
+    "id": "M2",
+    "name": "Workflow engine and manage-by-exception",
+    "weeksFromNtp": "6 to 12",
+    "targetDate": "2027-04-09",
+    "deliverable": "Signature routing demonstration for job order payroll and one exception path.",
+    "acceptanceOracle": "LGU HR workflow swimlanes.",
+    "exitCondition": "L3 harness green; manage-by-exception demonstration recorded.",
+    "internalPredecessor": "M1 accepted internally; workflow swimlanes reviewed.",
+    "status": "not_started",
+    "rag": "gray",
+    "closureRecordPath": null
+  },
+  {
+    "id": "M3",
+    "name": "Signing services and PNPKI integration",
+    "weeksFromNtp": "12 to 16",
+    "targetDate": "2027-05-07",
+    "deliverable": "End-to-end signed payroll for a sample cut-off, with fallback path shown.",
+    "acceptanceOracle": "ADR-005 and the signing series handover.",
+    "exitCondition": "L2 contract tests green against PNPKI stub; L4 green end-to-end on seeded env.",
+    "internalPredecessor": "PNPKI nomination completed; ADR-005 closed.",
+    "status": "not_started",
+    "rag": "gray",
+    "closureRecordPath": null
+  },
+  {
+    "id": "M4",
+    "name": "Mobile field capture, offline-first",
+    "weeksFromNtp": "12 to 20",
+    "targetDate": "2027-06-04",
+    "deliverable": "Field capture on Android and iOS, incl. offline queue and sync.",
+    "acceptanceOracle": "Mobile architecture blueprint and mobile data model.",
+    "exitCondition": "L4 green including a forced-offline scenario; UI evidence on both platforms.",
+    "internalPredecessor": "Mobile data model accepted; L4 integration harness green on seeded environment.",
+    "status": "not_started",
+    "rag": "gray",
+    "closureRecordPath": null
+  },
+  {
+    "id": "M5",
+    "name": "Consolidation and acceptance build",
+    "weeksFromNtp": "20 to 24",
+    "targetDate": "2027-07-02",
+    "deliverable": "Full build offered for acceptance rehearsal, then for acceptance.",
+    "acceptanceOracle": "TOR numbered specifications.",
+    "exitCondition": "L6 acceptance rehearsal green against the offered build.",
+    "internalPredecessor": "L6 acceptance rehearsal green against the offered build.",
+    "status": "not_started",
+    "rag": "gray",
+    "closureRecordPath": null
+  },
+  {
+    "id": "MR",
+    "name": "Acceptance rehearsal (on demand)",
+    "weeksFromNtp": "on demand before M3, M4, M5",
+    "targetDate": "2027-06-18",
+    "deliverable": "Internal rehearsal against the build that will be offered.",
+    "acceptanceOracle": "L1 to L5 green on the target build.",
+    "exitCondition": "Rehearsal report signed; gaps closed before offer.",
+    "internalPredecessor": "L1 to L5 green on the target build.",
+    "status": "not_started",
+    "rag": "gray",
+    "closureRecordPath": null
+  }
+]

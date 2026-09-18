@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ADR-001",
+    "title": "Rules pack versioning",
+    "status": "Accepted",
+    "decision": "Rules pack is versioned per cut-off period; retroactive changes create a new version.",
+    "context": "M1 gate depends on frozen rules for the current cut-off.",
+    "consequences": "Every L1 test declares pack version; evidence records hash.",
+    "supersedes": null,
+    "supersededBy": null,
+    "effectiveDate": "2026-08-19",
+    "filePath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\ADR\\ADR-001.docx"
+  },
+  {
+    "id": "ADR-003",
+    "title": "Semi-monthly split",
+    "status": "Accepted",
+    "decision": "Payroll cut-offs run on the 15th and end-of-month; both are frozen at M1.",
+    "context": "LGU HR payroll cadence.",
+    "consequences": null,
+    "supersedes": null,
+    "supersededBy": null,
+    "effectiveDate": "2026-08-29",
+    "filePath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\ADR\\ADR-003.docx"
+  },
+  {
+    "id": "ADR-005",
+    "title": "PNPKI signing key custody",
+    "status": "Proposed",
+    "decision": "Signing keys held only on approved devices; manual fallback for M3 emergencies.",
+    "context": "Digital signature enrolment via PNPKI.",
+    "consequences": null,
+    "supersedes": null,
+    "supersededBy": null,
+    "effectiveDate": null,
+    "filePath": "c:\\Users\\Samu\\OneDrive\\Pictures\\Documents\\supervaise meeting notes\\HRIS\\POC\\ADR\\ADR-005.docx"
+  }
+]
