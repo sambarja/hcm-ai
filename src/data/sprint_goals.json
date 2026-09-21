@@ -4,12 +4,12 @@
     "startDate": "2026-09-22",
     "endDate": "2026-09-28",
     "milestone": "PREP-A",
-    "goal": "Kick off the runway. Deliver the Bounty Fresh workshop and start the Postgres migration.",
+    "goal": "Get the team live on the shared board so we plan Sprint 2 from it \u2014 not from email, chat, or paper.",
     "deliverables": [
+      "Every team member signed in to hcm-ai-pm at least once",
+      "Vercel Postgres provisioned; the team sees each other's tasks and concerns",
       "Bounty Fresh executive workshop delivered (Sam + Eliza)",
-      "hcm-ai-pm PROVISIONING.md read and understood; Vercel Postgres provisioned",
-      "First 5 Pre-M1 KRs graded against the OKR workbook",
-      "Sprint 1 minute filed with Drive link"
+      "Sprint 2 kickoff drafted on the platform, not in email or chat"
     ],
     "owners": "Sam \u00b7 Sora"
   },
