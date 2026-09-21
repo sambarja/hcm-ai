@@ -2,7 +2,7 @@
   {
     "id": "DOC-001",
     "section": "A",
-    "title": "SAGIP · Team Master",
+    "title": "HCM AI · Team Master",
     "purpose": "Whole-team dashboard — 11 sheets.",
     "version": "current",
     "ownerName": "Sam",
@@ -14,7 +14,7 @@
   {
     "id": "DOC-002",
     "section": "A",
-    "title": "SAGIP · Engineering",
+    "title": "HCM AI · Engineering",
     "purpose": "Sprint backlog, velocity, AI-coding %, cycle time.",
     "version": "current",
     "ownerName": "Eng Owner",
@@ -26,7 +26,7 @@
   {
     "id": "DOC-003",
     "section": "A",
-    "title": "SAGIP · QA / Testing",
+    "title": "HCM AI · QA / Testing",
     "purpose": "UAT scenarios, test runs, issue backlog.",
     "version": "current",
     "ownerName": "QA Lead",
@@ -38,7 +38,7 @@
   {
     "id": "DOC-004",
     "section": "A",
-    "title": "SAGIP · Design",
+    "title": "HCM AI · Design",
     "purpose": "120-screen progress, design system, persona feedback.",
     "version": "current",
     "ownerName": "Marcus + Franc",

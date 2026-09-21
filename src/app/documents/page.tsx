@@ -28,7 +28,7 @@ export default function DocumentsPage() {
     <div>
       <PageHeader
         title="Documents"
-        subtitle="Every artifact from the SAGIP Command Center. File paths open via file:// on the local machine."
+        subtitle="Every artifact from the HCM AI Command Center. File paths open via file:// on the local machine."
       />
       <div className="space-y-8">
         {[...grouped.keys()].sort().map((sec) => (

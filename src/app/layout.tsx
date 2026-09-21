@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
+import { StoreProvider } from "@/lib/store";
 import { AuthGate } from "@/components/AuthGate";
 import { AppChrome } from "@/components/AppChrome";
 
@@ -18,9 +19,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
       <body>
         <AuthProvider>
-          <AuthGate>
-            <AppChrome>{children}</AppChrome>
-          </AuthGate>
+          <StoreProvider>
+            <AuthGate>
+              <AppChrome>{children}</AppChrome>
+            </AuthGate>
+          </StoreProvider>
         </AuthProvider>
       </body>
     </html>

@@ -6,7 +6,7 @@
     "targetDate": "2027-01-15",
     "deliverable": "Documentation and rules pack frozen for build.",
     "acceptanceOracle": "Pre-M1 OKRs closed; documentation set frozen.",
-    "exitCondition": "All Pre-M1 KRs graded; documentation index at HRIS/POC/SAGIP_Command_Center.xlsx marked Current.",
+    "exitCondition": "All Pre-M1 KRs graded; documentation index at HRIS/POC/HCM_AI_Command_Center.xlsx marked Current.",
     "internalPredecessor": "Pre-M1 OKRs closed.",
     "status": "in_progress",
     "rag": "amber",
