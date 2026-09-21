@@ -8,9 +8,19 @@ export default function RisksPage() {
   return (
     <div>
       <PageHeader
-        title="Risk register"
-        subtitle="Ten failure modes from Work Plan §9.1. Each has an early sign, a mitigation the plan carries, and an escalation."
+        title="Risk register (reference)"
+        subtitle="Ten pre-committed failure modes from Work Plan §9.1. Live risks are now raised as concerns."
       />
+      <div className="mb-6 border border-amber-300 bg-amber-50 rounded p-4 text-[13px]">
+        <div className="font-semibold text-amber-900 mb-1">This register is reference-only.</div>
+        <div className="text-ink">
+          A newly emerging risk is a concern. Raise one under{" "}
+          <a href="/concerns" className="text-blue-700 hover:underline font-medium">
+            Concerns
+          </a>
+          . The cards below stay as the pre-committed reference set from the plan.
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {rows.map((r) => (
           <div key={r.id} className="card">

@@ -16,9 +16,20 @@ export default function StandupPage() {
   return (
     <div>
       <PageHeader
-        title="Written stand-up log"
-        subtitle="Async, before 10:00 local. Replaces spoken stand-up (Work Plan §7.1). One entry per owner per day."
+        title="Stand-up log (archive)"
+        subtitle="Daily async log. Superseded by the Monday sprint minute for the 8-person team."
       />
+      <div className="mb-6 border border-amber-300 bg-amber-50 rounded p-4 text-[13px]">
+        <div className="font-semibold text-amber-900 mb-1">The daily stand-up has been retired.</div>
+        <div className="text-ink">
+          For an 8-person team, the Monday 11:00 sprint minute is the cadence.{" "}
+          <a href="/meetings" className="text-blue-700 hover:underline font-medium">
+            Sprint Meetings
+          </a>{" "}
+          captures moved / blocked / next per person as part of the minute. Old entries stay here for
+          reference.
+        </div>
+      </div>
       <div className="space-y-6">
         {[...byDate.entries()].map(([date, entries]) => (
           <section key={date}>

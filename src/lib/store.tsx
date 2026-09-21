@@ -71,18 +71,52 @@ export interface Concern {
   createdAt: string;
 }
 
+export type Rag = "green" | "amber" | "red" | "gold" | "gray";
+export type MilestoneStatus =
+  | "not_started"
+  | "in_progress"
+  | "at_risk"
+  | "blocked"
+  | "done"
+  | "deferred";
+
+export interface MilestoneOverride {
+  status: MilestoneStatus;
+  rag: Rag;
+  note: string;
+  updatedBy: string;
+  updatedAt: string;
+}
+
+export interface OkrGrade {
+  grade: number;
+  note: string;
+  updatedBy: string;
+  updatedAt: string;
+}
+
 interface StoreShape {
   tasks: Task[];
   meetings: MeetingNote[];
   concerns: Concern[];
+  milestoneOverrides: Record<string, MilestoneOverride>;
+  okrGrades: Record<string, OkrGrade>;
 }
 
-const EMPTY: StoreShape = { tasks: [], meetings: [], concerns: [] };
+const EMPTY: StoreShape = {
+  tasks: [],
+  meetings: [],
+  concerns: [],
+  milestoneOverrides: {},
+  okrGrades: {},
+};
 
 interface StoreContextValue {
   tasks: Task[];
   meetings: MeetingNote[];
   concerns: Concern[];
+  milestoneOverrides: Record<string, MilestoneOverride>;
+  okrGrades: Record<string, OkrGrade>;
   addTask: (t: Omit<Task, "id" | "createdAt" | "updatedAt" | "comments" | "changeLog">) => Task;
   updateTask: (id: string, patch: Partial<Task>, actor: { id: string; name: string }) => void;
   changeStatus: (id: string, to: TaskStatus, actor: { id: string; name: string }, note?: string) => void;
@@ -93,6 +127,10 @@ interface StoreContextValue {
   deleteMeeting: (id: string) => void;
   addConcern: (c: Omit<Concern, "id" | "createdAt" | "status" | "leadershipResponse" | "respondedBy" | "respondedAt">) => Concern;
   respondToConcern: (id: string, response: string, responder: { id: string; name: string }, status: Concern["status"]) => void;
+  setMilestoneOverride: (milestoneId: string, patch: Omit<MilestoneOverride, "updatedAt">) => void;
+  clearMilestoneOverride: (milestoneId: string) => void;
+  setOkrGrade: (krId: string, patch: Omit<OkrGrade, "updatedAt">) => void;
+  clearOkrGrade: (krId: string) => void;
   resetAll: () => void;
 }
 
@@ -112,7 +150,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState(JSON.parse(raw));
+      if (raw) {
+        const parsed = JSON.parse(raw) as Partial<StoreShape>;
+        setState({
+          tasks: parsed.tasks ?? [],
+          meetings: parsed.meetings ?? [],
+          concerns: parsed.concerns ?? [],
+          milestoneOverrides: parsed.milestoneOverrides ?? {},
+          okrGrades: parsed.okrGrades ?? {},
+        });
+      }
     } catch {}
     setHydrated(true);
   }, []);
@@ -277,6 +324,42 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }));
   }
 
+  function setMilestoneOverride(milestoneId: string, patch: Omit<MilestoneOverride, "updatedAt">) {
+    setState((s) => ({
+      ...s,
+      milestoneOverrides: {
+        ...s.milestoneOverrides,
+        [milestoneId]: { ...patch, updatedAt: nowIso() },
+      },
+    }));
+  }
+
+  function clearMilestoneOverride(milestoneId: string) {
+    setState((s) => {
+      const next = { ...s.milestoneOverrides };
+      delete next[milestoneId];
+      return { ...s, milestoneOverrides: next };
+    });
+  }
+
+  function setOkrGrade(krId: string, patch: Omit<OkrGrade, "updatedAt">) {
+    setState((s) => ({
+      ...s,
+      okrGrades: {
+        ...s.okrGrades,
+        [krId]: { ...patch, updatedAt: nowIso() },
+      },
+    }));
+  }
+
+  function clearOkrGrade(krId: string) {
+    setState((s) => {
+      const next = { ...s.okrGrades };
+      delete next[krId];
+      return { ...s, okrGrades: next };
+    });
+  }
+
   function resetAll() {
     setState(EMPTY);
   }
@@ -287,6 +370,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         tasks: state.tasks,
         meetings: state.meetings,
         concerns: state.concerns,
+        milestoneOverrides: state.milestoneOverrides,
+        okrGrades: state.okrGrades,
         addTask,
         updateTask,
         changeStatus,
@@ -297,6 +382,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         deleteMeeting,
         addConcern,
         respondToConcern,
+        setMilestoneOverride,
+        clearMilestoneOverride,
+        setOkrGrade,
+        clearOkrGrade,
         resetAll,
       }}
     >

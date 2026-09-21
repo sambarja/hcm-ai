@@ -63,9 +63,20 @@ export default function BlockersPage() {
   return (
     <div>
       <PageHeader
-        title="Blocker register (KR 4.4)"
-        subtitle="Escalated when aging past two working days on the critical chain. Aging is computed at render time."
+        title="Blocker register (archive)"
+        subtitle="Legacy KR 4.4 register. Live blockers are now tracked as tasks with status = Blocked."
       />
+      <div className="mb-6 border border-amber-300 bg-amber-50 rounded p-4 text-[13px]">
+        <div className="font-semibold text-amber-900 mb-1">This register has been folded into Tasks.</div>
+        <div className="text-ink">
+          A blocker is a task that can't move. Raise one under{" "}
+          <a href="/tasks" className="text-blue-700 hover:underline font-medium">
+            Tasks
+          </a>{" "}
+          and set its status to <span className="mono">Blocked</span>. The entries below are read-only
+          history from the original static register.
+        </div>
+      </div>
       <DataTable columns={cols} rows={rows} rowClassName={rowClassName} />
     </div>
   );
