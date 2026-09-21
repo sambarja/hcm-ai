@@ -147,6 +147,7 @@ export async function fetchSnapshot(): Promise<Snapshot> {
       documentOverrides[r.document_id as string] = {
         description: (r.description as string) ?? "",
         extraLinks: (r.extra_links as DocumentExtraLink[]) ?? [],
+        managedBy: (r.managed_by as string) ?? null,
         updatedBy: r.updated_by as string,
         updatedAt: (r.updated_at as Date).toISOString(),
       };
@@ -394,16 +395,22 @@ export async function deleteOkrGrade(krId: string): Promise<void> {
 
 export async function upsertDocumentOverride(
   documentId: string,
-  patch: { description: string; extraLinks: DocumentExtraLink[]; updatedBy: string }
+  patch: {
+    description: string;
+    extraLinks: DocumentExtraLink[];
+    managedBy: string | null;
+    updatedBy: string;
+  }
 ): Promise<void> {
   await withDb(async () => {
     const linksJson = JSON.stringify(patch.extraLinks);
     await sql`
-      INSERT INTO document_overrides (document_id, description, extra_links, updated_by)
-      VALUES (${documentId}, ${patch.description}, ${linksJson}::jsonb, ${patch.updatedBy})
+      INSERT INTO document_overrides (document_id, description, extra_links, managed_by, updated_by)
+      VALUES (${documentId}, ${patch.description}, ${linksJson}::jsonb, ${patch.managedBy}, ${patch.updatedBy})
       ON CONFLICT (document_id) DO UPDATE
       SET description = EXCLUDED.description,
           extra_links = EXCLUDED.extra_links,
+          managed_by = EXCLUDED.managed_by,
           updated_by = EXCLUDED.updated_by,
           updated_at = now()
     `;
@@ -505,6 +512,7 @@ export async function migrateSnapshotIntoDb(snap: Snapshot, actor: { id: string;
       await upsertDocumentOverride(docId, {
         description: ov.description,
         extraLinks: ov.extraLinks,
+        managedBy: ov.managedBy ?? null,
         updatedBy: ov.updatedBy,
       });
       inserted++;

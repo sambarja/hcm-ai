@@ -85,9 +85,13 @@ CREATE TABLE IF NOT EXISTS document_overrides (
   document_id  TEXT PRIMARY KEY,
   description  TEXT NOT NULL DEFAULT '',
   extra_links  JSONB NOT NULL DEFAULT '[]'::jsonb,
+  managed_by   TEXT,
   updated_by   TEXT NOT NULL,
   updated_at   TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Idempotent add for existing databases created before managed_by existed.
+ALTER TABLE document_overrides ADD COLUMN IF NOT EXISTS managed_by TEXT;
 
 CREATE INDEX IF NOT EXISTS idx_tasks_status     ON tasks(status);
 CREATE INDEX IF NOT EXISTS idx_tasks_owner      ON tasks(owner_id);

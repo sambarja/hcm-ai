@@ -100,6 +100,7 @@ export interface DocumentExtraLink {
 export interface DocumentOverride {
   description: string;
   extraLinks: DocumentExtraLink[];
+  managedBy: string | null;
   updatedBy: string;
   updatedAt: string;
 }

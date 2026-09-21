@@ -91,7 +91,15 @@ interface StoreContextValue {
   clearMilestoneOverride: (milestoneId: string) => Promise<void>;
   setOkrGrade: (krId: string, patch: Omit<OkrGrade, "updatedAt">) => Promise<void>;
   clearOkrGrade: (krId: string) => Promise<void>;
-  setDocumentOverride: (docId: string, patch: { description: string; extraLinks: DocumentExtraLink[]; updatedBy: string }) => Promise<void>;
+  setDocumentOverride: (
+    docId: string,
+    patch: {
+      description: string;
+      extraLinks: DocumentExtraLink[];
+      managedBy: string | null;
+      updatedBy: string;
+    }
+  ) => Promise<void>;
   clearDocumentOverride: (docId: string) => Promise<void>;
   resetAll: () => void;
   isDbMode: boolean;
@@ -553,7 +561,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   async function setDocumentOverride(
     docId: string,
-    patch: { description: string; extraLinks: DocumentExtraLink[]; updatedBy: string }
+    patch: {
+      description: string;
+      extraLinks: DocumentExtraLink[];
+      managedBy: string | null;
+      updatedBy: string;
+    }
   ) {
     if (isDbMode) {
       await upsertDocumentOverride(docId, patch);

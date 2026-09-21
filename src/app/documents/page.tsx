@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import docsData from "@/data/documents.json";
-import type { DocumentEntry } from "@/types";
+import teamData from "@/data/team.json";
+import type { DocumentEntry, TeamMember } from "@/types";
 import { PageHeader } from "@/components/PageHeader";
 import { useAuth } from "@/lib/auth";
 import { useStore, type DocumentExtraLink } from "@/lib/store";
@@ -35,6 +36,7 @@ export default function DocumentsPage() {
   const { user, isAdmin } = useAuth();
   const { documentOverrides, setDocumentOverride, clearDocumentOverride, addConcern, concerns } =
     useStore();
+  const roster = teamData as TeamMember[];
   const [filter, setFilter] = useState<"all" | "stale" | "with_concerns">("all");
 
   const rows = useMemo(
@@ -106,11 +108,13 @@ export default function DocumentsPage() {
                   isAdmin={isAdmin}
                   currentUserName={user?.name ?? ""}
                   currentUserId={user?.id ?? ""}
+                  roster={roster}
                   onSaveOverride={(patch) => {
                     if (!user) return;
                     setDocumentOverride(d.id, {
                       description: patch.description,
                       extraLinks: patch.extraLinks,
+                      managedBy: patch.managedBy,
                       updatedBy: user.name,
                     });
                   }}
@@ -148,22 +152,36 @@ function DocCard({
   concernCount,
   isAdmin,
   currentUserName,
+  roster,
   onSaveOverride,
   onClearOverride,
   onRaiseConcern,
 }: {
   doc: DocumentEntry;
-  override?: { description: string; extraLinks: DocumentExtraLink[]; updatedBy: string; updatedAt: string };
+  override?: {
+    description: string;
+    extraLinks: DocumentExtraLink[];
+    managedBy: string | null;
+    updatedBy: string;
+    updatedAt: string;
+  };
   concernCount: number;
   isAdmin: boolean;
   currentUserName: string;
   currentUserId: string;
-  onSaveOverride: (patch: { description: string; extraLinks: DocumentExtraLink[] }) => void;
+  roster: TeamMember[];
+  onSaveOverride: (patch: {
+    description: string;
+    extraLinks: DocumentExtraLink[];
+    managedBy: string | null;
+  }) => void;
   onClearOverride: () => void;
   onRaiseConcern: (statement: string, impact: string, evidenceLink: string | null) => void;
 }) {
   const [tab, setTab] = useState<"view" | "edit" | "concern">("view");
   const stale = isStale(doc.lastTouched);
+  const managedBy = override?.managedBy || doc.ownerName || "—";
+  const managedByOverridden = override?.managedBy && override.managedBy !== doc.ownerName;
 
   return (
     <div className="card !p-3 flex flex-col gap-2">
@@ -172,7 +190,10 @@ function DocCard({
           <div className="text-[13px] font-medium text-ink leading-tight">{doc.title}</div>
           <div className="text-[10px] text-ink-2 mt-0.5">
             {doc.version && <span className="mono">{doc.version} · </span>}
-            {doc.ownerName ?? "—"}
+            <span title={managedByOverridden ? `Was: ${doc.ownerName ?? "unset"}` : undefined}>
+              Managed by <span className="text-ink">{managedBy}</span>
+              {managedByOverridden && <span className="text-amber-700"> (override)</span>}
+            </span>
           </div>
         </div>
         <div className="flex flex-col items-end gap-1">
@@ -221,7 +242,7 @@ function DocCard({
 
       {override && (
         <div className="text-[10px] text-ink-2">
-          Managed by {override.updatedBy} · {new Date(override.updatedAt).toLocaleDateString()}
+          Last edit by {override.updatedBy} · {new Date(override.updatedAt).toLocaleDateString()}
         </div>
       )}
 
@@ -232,7 +253,7 @@ function DocCard({
               onClick={() => setTab(tab === "edit" ? "view" : "edit")}
               className="text-[11px] text-blue-700 hover:underline"
             >
-              {tab === "edit" ? "Cancel edit" : "Manage links / description"}
+              {tab === "edit" ? "Cancel edit" : "✎ Edit (manager / links / description)"}
             </button>
             <span className="text-ink-2 text-[10px]">·</span>
           </>
@@ -249,6 +270,8 @@ function DocCard({
         <EditForm
           override={override}
           currentUserName={currentUserName}
+          roster={roster}
+          docDefaultOwner={doc.ownerName ?? null}
           onSave={(patch) => {
             onSaveOverride(patch);
             setTab("view");
@@ -277,16 +300,27 @@ function DocCard({
 
 function EditForm({
   override,
+  roster,
+  docDefaultOwner,
   onSave,
   onRevert,
 }: {
-  override?: { description: string; extraLinks: DocumentExtraLink[] };
+  override?: { description: string; extraLinks: DocumentExtraLink[]; managedBy: string | null };
   currentUserName: string;
-  onSave: (patch: { description: string; extraLinks: DocumentExtraLink[] }) => void;
+  roster: TeamMember[];
+  docDefaultOwner: string | null;
+  onSave: (patch: {
+    description: string;
+    extraLinks: DocumentExtraLink[];
+    managedBy: string | null;
+  }) => void;
   onRevert: () => void;
 }) {
   const [description, setDescription] = useState(override?.description ?? "");
   const [links, setLinks] = useState<DocumentExtraLink[]>(override?.extraLinks ?? []);
+  const [managedBy, setManagedBy] = useState<string>(
+    override?.managedBy ?? docDefaultOwner ?? ""
+  );
   const [newLabel, setNewLabel] = useState("");
   const [newUrl, setNewUrl] = useState("");
 
@@ -306,6 +340,37 @@ function EditForm({
 
   return (
     <div className="border-t border-slate-200 pt-2 mt-1 space-y-2 text-[11px]">
+      <div>
+        <FLabel>Managed by</FLabel>
+        <select
+          value={managedBy}
+          onChange={(e) => setManagedBy(e.target.value)}
+          className="w-full border border-slate-300 rounded px-2 py-1 text-[11px]"
+        >
+          <option value="">— unassigned —</option>
+          {roster.map((m) => (
+            <option key={m.id} value={m.name}>
+              {m.name} · {m.role}
+            </option>
+          ))}
+          {docDefaultOwner && !roster.some((m) => m.name === docDefaultOwner) && (
+            <option value={docDefaultOwner}>{docDefaultOwner} (from JSON)</option>
+          )}
+        </select>
+        {docDefaultOwner && managedBy !== docDefaultOwner && (
+          <div className="text-[10px] text-ink-2 mt-0.5">
+            Original owner in JSON: {docDefaultOwner}
+            {" · "}
+            <button
+              type="button"
+              onClick={() => setManagedBy(docDefaultOwner)}
+              className="text-blue-700 hover:underline"
+            >
+              revert to that
+            </button>
+          </div>
+        )}
+      </div>
       <div>
         <FLabel>Description / status note</FLabel>
         <textarea
@@ -356,7 +421,13 @@ function EditForm({
       </div>
       <div className="flex items-center gap-2">
         <button
-          onClick={() => onSave({ description: description.trim(), extraLinks: links })}
+          onClick={() =>
+            onSave({
+              description: description.trim(),
+              extraLinks: links,
+              managedBy: managedBy.trim() || null,
+            })
+          }
           className="text-[11px] bg-ink text-white px-3 py-1 rounded"
         >
           Save

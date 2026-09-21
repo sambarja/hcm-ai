@@ -85,9 +85,11 @@ const SCHEMA_STATEMENTS = [
     document_id TEXT PRIMARY KEY,
     description TEXT NOT NULL DEFAULT '',
     extra_links JSONB NOT NULL DEFAULT '[]'::jsonb,
+    managed_by TEXT,
     updated_by TEXT NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
+  `ALTER TABLE document_overrides ADD COLUMN IF NOT EXISTS managed_by TEXT`,
   `CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status)`,
   `CREATE INDEX IF NOT EXISTS idx_tasks_owner ON tasks(owner_id)`,
   `CREATE INDEX IF NOT EXISTS idx_tasks_milestone ON tasks(milestone)`,
