@@ -45,11 +45,14 @@ export interface MeetingNote {
   id: string;
   meetingDate: string; // ISO date YYYY-MM-DD
   chair: string;
+  driveLink: string | null;
+  summary: string;
   attendees: string[];
-  discussion: string;
-  decisions: string;
-  actions: string;
-  concerns: string;
+  // Legacy fields kept optional so old localStorage payloads still hydrate.
+  discussion?: string;
+  decisions?: string;
+  actions?: string;
+  concerns?: string;
   createdBy: string;
   createdAt: string;
   updatedAt: string;
@@ -95,12 +98,26 @@ export interface OkrGrade {
   updatedAt: string;
 }
 
+export interface DocumentExtraLink {
+  id: string;
+  label: string;
+  url: string;
+}
+
+export interface DocumentOverride {
+  description: string;
+  extraLinks: DocumentExtraLink[];
+  updatedBy: string;
+  updatedAt: string;
+}
+
 interface StoreShape {
   tasks: Task[];
   meetings: MeetingNote[];
   concerns: Concern[];
   milestoneOverrides: Record<string, MilestoneOverride>;
   okrGrades: Record<string, OkrGrade>;
+  documentOverrides: Record<string, DocumentOverride>;
 }
 
 const EMPTY: StoreShape = {
@@ -109,6 +126,7 @@ const EMPTY: StoreShape = {
   concerns: [],
   milestoneOverrides: {},
   okrGrades: {},
+  documentOverrides: {},
 };
 
 interface StoreContextValue {
@@ -131,6 +149,9 @@ interface StoreContextValue {
   clearMilestoneOverride: (milestoneId: string) => void;
   setOkrGrade: (krId: string, patch: Omit<OkrGrade, "updatedAt">) => void;
   clearOkrGrade: (krId: string) => void;
+  documentOverrides: Record<string, DocumentOverride>;
+  setDocumentOverride: (docId: string, patch: { description: string; extraLinks: DocumentExtraLink[]; updatedBy: string }) => void;
+  clearDocumentOverride: (docId: string) => void;
   resetAll: () => void;
 }
 
@@ -158,6 +179,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           concerns: parsed.concerns ?? [],
           milestoneOverrides: parsed.milestoneOverrides ?? {},
           okrGrades: parsed.okrGrades ?? {},
+          documentOverrides: parsed.documentOverrides ?? {},
         });
       }
     } catch {}
@@ -360,6 +382,27 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  function setDocumentOverride(
+    docId: string,
+    patch: { description: string; extraLinks: DocumentExtraLink[]; updatedBy: string }
+  ) {
+    setState((s) => ({
+      ...s,
+      documentOverrides: {
+        ...s.documentOverrides,
+        [docId]: { ...patch, updatedAt: nowIso() },
+      },
+    }));
+  }
+
+  function clearDocumentOverride(docId: string) {
+    setState((s) => {
+      const next = { ...s.documentOverrides };
+      delete next[docId];
+      return { ...s, documentOverrides: next };
+    });
+  }
+
   function resetAll() {
     setState(EMPTY);
   }
@@ -372,6 +415,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         concerns: state.concerns,
         milestoneOverrides: state.milestoneOverrides,
         okrGrades: state.okrGrades,
+        documentOverrides: state.documentOverrides,
         addTask,
         updateTask,
         changeStatus,
@@ -386,6 +430,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         clearMilestoneOverride,
         setOkrGrade,
         clearOkrGrade,
+        setDocumentOverride,
+        clearDocumentOverride,
         resetAll,
       }}
     >
