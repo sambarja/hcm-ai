@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import sys,json;print(json.load(sys.stdin).get('tool_input',{}).get('file_path',''))\" | { read -r f; case \"$f\" in *hcm-ai-pm*) cd \"c:/Users/Samu/OneDrive/Pictures/Documents/supervaise meeting notes/HRIS/hcm-ai-pm\" && [ -n \"$(git status --porcelain)\" ] && git add -A && git commit -m \"auto: sync from claude code $(date -u +%Y-%m-%dT%H:%M:%SZ)\" && git push origin main ;; esac; } 2>/dev/null || true",
+            "timeout": 45,
+            "statusMessage": "Auto-pushing hcm-ai-pm..."
+          }
+        ]
+      }
+    ]
+  }
+}
