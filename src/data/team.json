@@ -2,56 +2,97 @@
   {
     "id": "TM-001",
     "name": "Sam",
-    "role": "Project Owner (+ Full-Stack, Scrum)",
+    "role": "Project Owner / Manager",
+    "accessLevel": "Admin",
     "primaryWorkbook": "Team Master + all others",
     "krsOwned": "O1–O5 (all 21 KRs)",
-    "reportsTo": "Leadership",
+    "reportsTo": "Sir Tony",
     "contact": "dev2@supervaise.io",
     "timezone": "PH",
-    "notes": "Owns this dashboard and the seven agents."
+    "notes": "Owns this dashboard, all objectives, and the seven agents. Escalates to Sir Tony."
   },
   {
     "id": "TM-002",
-    "name": "(TBD) Engineering Owner",
-    "role": "Engineering Owner",
+    "name": "Sora",
+    "role": "Engineer Owner",
+    "accessLevel": "Admin",
     "primaryWorkbook": "Engineering Sprint Tracker",
     "krsOwned": "KR 3.2, 3.3, 3.4 primary",
-    "reportsTo": "Leadership",
+    "reportsTo": "Sir Greg",
     "contact": "—",
     "timezone": "PH",
-    "notes": "Sprint velocity + AI-coding adoption."
+    "notes": "Owns engineering execution, sprint delivery, technical decisions. Escalates to Sir Greg."
   },
   {
     "id": "TM-003",
-    "name": "(TBD) QA Lead",
-    "role": "QA / Harness Engineer",
+    "name": "Marcus",
+    "role": "Harness Engineer",
+    "accessLevel": "Member",
     "primaryWorkbook": "QA Testing Tracker",
-    "krsOwned": "KR 2.3, 2.4 primary",
-    "reportsTo": "Sam",
+    "krsOwned": "KR 2.3 (L1–L6 harness)",
+    "reportsTo": "Sora",
     "contact": "—",
     "timezone": "PH",
-    "notes": "UAT scenarios + user-visible impact tagging."
+    "notes": "Owns the harness framework, L1–L6 test layers, POC validations. NOT a design/persona role — WP-01…WP-12 refer to persona-model contribution, not day-job."
   },
   {
     "id": "TM-004",
-    "name": "Marcus",
-    "role": "Web Persona Lead / Design",
-    "primaryWorkbook": "Design Prototype Tracker",
-    "krsOwned": "KR 1.1, 2.1 (Web)",
-    "reportsTo": "Sam",
+    "name": "Franc",
+    "role": "QA",
+    "accessLevel": "Member",
+    "primaryWorkbook": "QA Testing Tracker",
+    "krsOwned": "KR 2.4 (user-visible impact tagging)",
+    "reportsTo": "Sora",
     "contact": "—",
     "timezone": "PH",
-    "notes": "WP-01 through WP-12 personas."
+    "notes": "Owns UAT, defect triage, user-visible impact tagging. NOT the mobile persona lead — MP-01…MP-11 refer to persona-model contribution."
   },
   {
     "id": "TM-005",
-    "name": "Franc",
-    "role": "Mobile Persona Lead / Design",
-    "primaryWorkbook": "Design Prototype Tracker",
+    "name": "Eliza",
+    "role": "Mobile Developer",
+    "accessLevel": "Member",
+    "primaryWorkbook": "Engineering Sprint Tracker",
     "krsOwned": "KR 1.1, 2.1 (Mobile)",
-    "reportsTo": "Sam",
+    "reportsTo": "Sora",
     "contact": "—",
     "timezone": "PH",
-    "notes": "MP-01 through MP-11 personas."
+    "notes": "Owns Android field-capture app implementation."
+  },
+  {
+    "id": "TM-006",
+    "name": "Percival",
+    "role": "AI Engineer",
+    "accessLevel": "Member",
+    "primaryWorkbook": "Engineering Sprint Tracker",
+    "krsOwned": "KR 3.1 (AI agents A1–A7 + Manage-by-Exception)",
+    "reportsTo": "Sora",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "Owns the AI agent implementation (A1–A7) and the Manage-by-Exception AI."
+  },
+  {
+    "id": "TM-007",
+    "name": "Sir Tony",
+    "role": "Overall / Project Owner (Leadership)",
+    "accessLevel": "Admin",
+    "primaryWorkbook": "Command Center (read)",
+    "krsOwned": "Escalation authority",
+    "reportsTo": "—",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "Boss. Sam escalates to him. Concerns and contradictions flow up to Sir Tony."
+  },
+  {
+    "id": "TM-008",
+    "name": "Sir Greg",
+    "role": "Overall / Engineer Owner (Leadership)",
+    "accessLevel": "Admin",
+    "primaryWorkbook": "Command Center (read)",
+    "krsOwned": "Escalation authority (technical)",
+    "reportsTo": "—",
+    "contact": "—",
+    "timezone": "PH",
+    "notes": "Boss. Sora escalates to him. Technical concerns and contradictions flow up to Sir Greg."
   }
 ]

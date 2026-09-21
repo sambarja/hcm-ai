@@ -15,7 +15,16 @@ export default function TeamPage() {
                 <div className="text-[15px] font-semibold text-ink">{t.name}</div>
                 <div className="text-[12px] subtle">{t.role}</div>
               </div>
-              <div className="text-[10px] mono text-ink-2">{t.timezone ?? "—"}</div>
+              <span
+                className={
+                  "text-[10px] mono px-1.5 py-0.5 rounded " +
+                  (t.accessLevel === "Admin"
+                    ? "bg-amber-100 text-amber-800"
+                    : "bg-slate-100 text-slate-700")
+                }
+              >
+                {t.accessLevel}
+              </span>
             </div>
             <div className="text-[12px] space-y-1">
               {t.krsOwned && (

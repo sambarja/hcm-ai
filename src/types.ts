@@ -152,10 +152,13 @@ export interface Risk {
   mitigationLastMovedAt: string | null;
 }
 
+export type AccessLevel = "Admin" | "Member";
+
 export interface TeamMember {
   id: string;
   name: string;
   role: string;
+  accessLevel: AccessLevel;
   primaryWorkbook: string | null;
   krsOwned: string | null;
   reportsTo: string | null;
