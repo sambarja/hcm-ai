@@ -4,8 +4,28 @@ import { useMemo, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { useAuth } from "@/lib/auth";
 import { useStore, type MeetingNote } from "@/lib/store";
+import sprintGoals from "@/data/sprint_goals.json";
+
+interface SprintGoal {
+  sprint: number;
+  startDate: string;
+  endDate: string;
+  milestone: string;
+  goal: string;
+  deliverables: string[];
+  owners: string;
+}
+
+const SPRINT_GOALS = sprintGoals as SprintGoal[];
 
 const NEXT_N_MEETINGS = 8;
+
+function sprintForDate(iso: string): SprintGoal | null {
+  for (const s of SPRINT_GOALS) {
+    if (iso >= s.startDate && iso <= s.endDate) return s;
+  }
+  return null;
+}
 
 function nextMondays(n: number): Date[] {
   const out: Date[] = [];
@@ -44,12 +64,57 @@ export default function MeetingsPage() {
     [meetings]
   );
 
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const currentSprint = sprintForDate(todayIso);
+
   return (
     <div>
       <PageHeader
         title="Sprint Meetings"
         subtitle="Weekly Monday sprint at 11:00. Minute = one Google Drive link + a one-line summary. Anything longer lives in the Drive doc."
       />
+
+      {currentSprint && (
+        <div className="mb-6 rounded-lg border-2 border-amber-400 bg-amber-50 p-4">
+          <div className="flex items-baseline justify-between gap-3 mb-1">
+            <div>
+              <span className="text-[11px] uppercase tracking-wider text-amber-900 font-bold mr-2">
+                This week · Sprint {currentSprint.sprint}
+              </span>
+              <span className="text-[11px] text-ink-2 mono">
+                {new Date(currentSprint.startDate).toLocaleDateString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                })}{" "}
+                –{" "}
+                {new Date(currentSprint.endDate).toLocaleDateString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
+            <span className="text-[10px] mono bg-amber-200 text-amber-900 px-2 py-0.5 rounded">
+              {currentSprint.milestone}
+            </span>
+          </div>
+          <div className="text-[14px] text-ink font-medium leading-snug mb-2">
+            {currentSprint.goal}
+          </div>
+          <div className="text-[11px] uppercase tracking-wider text-amber-900 font-semibold mt-2 mb-1">
+            Deliverables
+          </div>
+          <ul className="space-y-0.5">
+            {currentSprint.deliverables.map((d, i) => (
+              <li key={i} className="text-[12px] text-ink">
+                • {d}
+              </li>
+            ))}
+          </ul>
+          <div className="text-[11px] text-ink-2 mt-2">
+            Owner accountable: <span className="text-ink font-medium">{currentSprint.owners}</span>
+          </div>
+        </div>
+      )}
 
       <div className="mb-8">
         <div className="text-[13px] font-semibold text-ink mb-3">
@@ -61,17 +126,35 @@ export default function MeetingsPage() {
             const existing = meetingsByDate.get(key);
             const isOpen = openDate === key;
             const prevMeeting = sortedFiled.find((m) => m.meetingDate < key);
+            const sprint = sprintForDate(key);
             return (
               <div key={key} className="card !p-3">
-                <div className="text-[12px] mono text-ink-2">
-                  {d.toLocaleDateString(undefined, {
-                    weekday: "short",
-                    month: "short",
-                    day: "numeric",
-                  })}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-[12px] mono text-ink-2">
+                    {d.toLocaleDateString(undefined, {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </div>
+                  {sprint && (
+                    <span className="text-[10px] mono bg-slate-100 text-ink-2 px-1.5 py-0.5 rounded">
+                      SPRINT {sprint.sprint}
+                    </span>
+                  )}
                 </div>
                 <div className="text-[15px] font-semibold text-ink">11:00 sprint</div>
-                <div className="text-[11px] text-ink-2 mt-1">
+                {sprint && (
+                  <div className="mt-2 border-l-2 border-blue-400 pl-2 bg-blue-50/50 rounded-sm py-1">
+                    <div className="text-[9px] uppercase tracking-wider text-blue-800 font-semibold">
+                      Sprint goal · {sprint.milestone}
+                    </div>
+                    <div className="text-[11px] text-ink line-clamp-3 mt-0.5">
+                      {sprint.goal}
+                    </div>
+                  </div>
+                )}
+                <div className="text-[11px] text-ink-2 mt-2">
                   {existing ? (
                     <span className="text-green-700">
                       ✓ Filed by {existing.chair}

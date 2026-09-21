@@ -1,0 +1,184 @@
+[
+  {
+    "sprint": 1,
+    "startDate": "2026-09-22",
+    "endDate": "2026-09-28",
+    "milestone": "PREP-A",
+    "goal": "Kick off the runway. Deliver the Bounty Fresh workshop and start the Postgres migration.",
+    "deliverables": [
+      "Bounty Fresh executive workshop delivered (Sam + Eliza)",
+      "hcm-ai-pm PROVISIONING.md read and understood; Vercel Postgres provisioned",
+      "First 5 Pre-M1 KRs graded against the OKR workbook",
+      "Sprint 1 minute filed with Drive link"
+    ],
+    "owners": "Sam \u00b7 Sora"
+  },
+  {
+    "sprint": 2,
+    "startDate": "2026-09-29",
+    "endDate": "2026-10-05",
+    "milestone": "PREP-A",
+    "goal": "Go live on the shared database. Continue OKR grading.",
+    "deliverables": [
+      "Postgres live on hcm-ai-pm; team sees each other's tasks and concerns",
+      "Local-to-server migration button used by every signed-in Admin",
+      "Additional 5 Pre-M1 KRs graded (10 of 21 total)",
+      "hcm-ai-pm sidebar Reference section reviewed by Sora + Marcus"
+    ],
+    "owners": "Sora \u00b7 Marcus"
+  },
+  {
+    "sprint": 3,
+    "startDate": "2026-10-06",
+    "endDate": "2026-10-12",
+    "milestone": "PREP-A",
+    "goal": "Open the POC pipeline. Charter the first two experiments.",
+    "deliverables": [
+      "POC-001 (rules pack validation) charter signed",
+      "POC-002 (semi-monthly split) charter signed",
+      "Additional 5 Pre-M1 KRs graded (15 of 21 total)",
+      "First evidence sample uploaded to POC-001 folder"
+    ],
+    "owners": "Marcus \u00b7 Sora \u00b7 Sam"
+  },
+  {
+    "sprint": 4,
+    "startDate": "2026-10-13",
+    "endDate": "2026-10-19",
+    "milestone": "PREP-A \u2192 Oct 19",
+    "goal": "Close PREP-A. Every Pre-M1 KR graded at least once with evidence link.",
+    "deliverables": [
+      "All 21 Pre-M1 KRs graded (mid-quarter report)",
+      "Command Center xlsx marked \"Current\" for the OKR sheet",
+      "ADR-001 (workflow engine choice) skeleton drafted",
+      "PREP-A retrospective filed in the Monday minute"
+    ],
+    "owners": "Sam"
+  },
+  {
+    "sprint": 5,
+    "startDate": "2026-10-20",
+    "endDate": "2026-10-26",
+    "milestone": "PREP-B",
+    "goal": "Advance POC-001 evidence. Move ADR-001 to Proposed state.",
+    "deliverables": [
+      "POC-001 half-way review; go/no-go on continuing",
+      "ADR-001 in Proposed state, circulated to the team",
+      "hcm-ai-pm Stage B (digest + clipboard) design signed off",
+      "Weekly stale-doc report reviewed on Documents page"
+    ],
+    "owners": "Sora \u00b7 Marcus"
+  },
+  {
+    "sprint": 6,
+    "startDate": "2026-10-27",
+    "endDate": "2026-11-02",
+    "milestone": "PREP-B",
+    "goal": "Close POC-001. Begin ADR-002 for mobile framework.",
+    "deliverables": [
+      "POC-001 report signed by engineering owner",
+      "ADR-002 (mobile framework) draft posted for review",
+      "Stage B (weekly digest one-click) live on Dashboard",
+      "Eliza confirms mobile persona models WP-01\u2026WP-12 usable for M4"
+    ],
+    "owners": "Marcus \u00b7 Eliza"
+  },
+  {
+    "sprint": 7,
+    "startDate": "2026-11-03",
+    "endDate": "2026-11-09",
+    "milestone": "PREP-B",
+    "goal": "Finish POC-002. Get ADR-001 accepted.",
+    "deliverables": [
+      "POC-002 report + ADR-003 seed data ready",
+      "ADR-001 accepted; effective date on the register",
+      "ADR-002 in Proposed state after mobile review",
+      "First live weekly digest sent to Sir Tony + Sir Greg"
+    ],
+    "owners": "Sora \u00b7 Percival"
+  },
+  {
+    "sprint": 8,
+    "startDate": "2026-11-10",
+    "endDate": "2026-11-16",
+    "milestone": "PREP-B \u2192 Nov 16",
+    "goal": "Close PREP-B. Every POC closed, every ADR at least in Proposed state.",
+    "deliverables": [
+      "POC-002 report signed",
+      "ADR-003 (semi-monthly split) draft ready",
+      "ADR-002 accepted or reasons on the register",
+      "PREP-B retrospective in the Monday minute; Rules Pack v0.9 kickoff"
+    ],
+    "owners": "Sora \u00b7 Percival"
+  },
+  {
+    "sprint": 9,
+    "startDate": "2026-11-17",
+    "endDate": "2026-11-23",
+    "milestone": "PREP-C",
+    "goal": "ADR-003 signed. Rules Pack v0.9 skeleton ready.",
+    "deliverables": [
+      "ADR-003 accepted with effective date",
+      "Rules Pack v0.9 skeleton (table of contents + section owners)",
+      "hcm-ai-pm Stage E (AI drafts) architecture proposed",
+      "Claude API key acquired and stored in Vercel env"
+    ],
+    "owners": "Sora \u00b7 Sam \u00b7 Percival"
+  },
+  {
+    "sprint": 10,
+    "startDate": "2026-11-24",
+    "endDate": "2026-11-30",
+    "milestone": "PREP-C",
+    "goal": "Ship Stage B in production use. Draft the Rules Pack.",
+    "deliverables": [
+      "One-click weekly digest used at Monday sprint by chair",
+      "Rules Pack v0.9 draft posted for team review",
+      "Stage E first prompt version drafted against parent plans",
+      "hcm-ai-pm stale-doc filter reviewed with reference-doc owners"
+    ],
+    "owners": "Percival \u00b7 Sora"
+  },
+  {
+    "sprint": 11,
+    "startDate": "2026-12-01",
+    "endDate": "2026-12-07",
+    "milestone": "PREP-C",
+    "goal": "Rules Pack v1.0 candidate signed. Stage E first drafts flowing.",
+    "deliverables": [
+      "Rules Pack v0.9 \u2192 v1.0 candidate signed by Sam + Sora",
+      "Stage E producing first minute-summary draft against Drive doc",
+      "Client rules confirmation received in writing",
+      "hcm-ai-pm banners updated to \"database mode \u00b7 shared\""
+    ],
+    "owners": "Sam \u00b7 Sora"
+  },
+  {
+    "sprint": 12,
+    "startDate": "2026-12-08",
+    "endDate": "2026-12-14",
+    "milestone": "PREP-C \u2192 Dec 14",
+    "goal": "Close PREP-C. M0 gate clear.",
+    "deliverables": [
+      "Rules Pack v1.0 candidate frozen; no more changes without ADR",
+      "All 21 Pre-M1 KRs final-graded; workbook marked closed",
+      "Stage E signed off by Engineering Owner and QA",
+      "PREP-C retrospective filed; M0 kickoff agenda drafted"
+    ],
+    "owners": "Sam \u00b7 Sora"
+  },
+  {
+    "sprint": 13,
+    "startDate": "2026-12-15",
+    "endDate": "2026-12-21",
+    "milestone": "M0 START",
+    "goal": "M0 begins. Move from prep to build.",
+    "deliverables": [
+      "M0 kickoff meeting; first M0 minute filed",
+      "First M0 tasks in progress on the Tasks page",
+      "Programme timeline switched to the \"first 3 months from NTP\" view",
+      "Weekly digest now reports against M0 milestone status"
+    ],
+    "owners": "Sam \u00b7 Sora"
+  }
+]
